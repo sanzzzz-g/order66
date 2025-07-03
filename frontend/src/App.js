@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './App.css';
@@ -83,6 +83,24 @@ function App() {
 
   // Track which tasks have just been completed for animation
   const [justCompleted, setJustCompleted] = useState([]);
+
+  const [authModal, setAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState('signin'); // 'signin' | 'signup'
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem('sith_user');
+    return saved ? JSON.parse(saved) : null;
+  });
+  const [authError, setAuthError] = useState('');
+  const [authForm, setAuthForm] = useState({ username: '', password: '' });
+
+  // Simple in-memory user store for demo
+  const [userStore, setUserStore] = useState(() => {
+    const saved = localStorage.getItem('sith_user_store');
+    return saved ? JSON.parse(saved) : {};
+  });
+  useEffect(() => {
+    localStorage.setItem('sith_user_store', JSON.stringify(userStore));
+  }, [userStore]);
 
   // Update timer when pomodoroMinutes changes (if not running)
   React.useEffect(() => {
@@ -243,8 +261,116 @@ function App() {
   // Badges
   const earnedBadges = SITH_BADGES.filter(b => b.condition(pomodoroCount, streak));
 
+  useEffect(() => {
+    if (user) localStorage.setItem('sith_user', JSON.stringify(user));
+    else localStorage.removeItem('sith_user');
+  }, [user]);
+
+  const openAuth = (mode) => {
+    setAuthMode(mode);
+    setAuthModal(true);
+    setAuthError('');
+    setAuthForm({ username: '', password: '' });
+  };
+  const closeAuth = () => setAuthModal(false);
+
+  const handleAuthInput = e => {
+    setAuthForm(f => ({ ...f, [e.target.name]: e.target.value }));
+  };
+
+  const handleSignUp = e => {
+    e.preventDefault();
+    if (!authForm.username || !authForm.password) {
+      setAuthError('Please enter username and password.');
+      return;
+    }
+    if (userStore[authForm.username]) {
+      setAuthError('Username already exists.');
+      return;
+    }
+    setUserStore(store => ({ ...store, [authForm.username]: { password: authForm.password } }));
+    setUser({ username: authForm.username, guest: false });
+    setAuthModal(false);
+  };
+
+  const handleSignIn = e => {
+    e.preventDefault();
+    if (!authForm.username || !authForm.password) {
+      setAuthError('Please enter username and password.');
+      return;
+    }
+    if (!userStore[authForm.username] || userStore[authForm.username].password !== authForm.password) {
+      setAuthError('Invalid username or password.');
+      return;
+    }
+    setUser({ username: authForm.username, guest: false });
+    setAuthModal(false);
+  };
+
+  const handleGuest = () => {
+    setUser({ username: 'Guest', guest: true });
+    setAuthModal(false);
+  };
+
+  const handleLogout = () => setUser(null);
+
   return (
     <div className="SithLayout">
+      {/* Auth Modal */}
+      {authModal && (
+        <div className="SithRewardModal" onClick={closeAuth}>
+          <div className="SithRewardContent" onClick={e => e.stopPropagation()}>
+            <h2>{authMode === 'signin' ? 'Sign In' : 'Sign Up'}</h2>
+            <form onSubmit={authMode === 'signin' ? handleSignIn : handleSignUp}>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={authForm.username}
+                onChange={handleAuthInput}
+                autoFocus
+                style={{ marginBottom: '0.7rem', width: '100%' }}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={authForm.password}
+                onChange={handleAuthInput}
+                style={{ marginBottom: '0.7rem', width: '100%' }}
+              />
+              {authError && <div style={{ color: '#b1060f', marginBottom: '0.7rem' }}>{authError}</div>}
+              <button className="SithButton" type="submit" style={{ width: '100%' }}>
+                {authMode === 'signin' ? 'Sign In' : 'Sign Up'}
+              </button>
+            </form>
+            <button className="SithButton" style={{ width: '100%', marginTop: '0.7rem' }} onClick={handleGuest}>
+              Continue as Guest
+            </button>
+            <div style={{ marginTop: '0.7rem' }}>
+              {authMode === 'signin' ? (
+                <span>Don&apos;t have an account? <button className="SithButton" style={{ padding: '0.2rem 0.7rem', fontSize: '0.95rem' }} onClick={() => setAuthMode('signup')}>Sign Up</button></span>
+              ) : (
+                <span>Already have an account? <button className="SithButton" style={{ padding: '0.2rem 0.7rem', fontSize: '0.95rem' }} onClick={() => setAuthMode('signin')}>Sign In</button></span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Top right auth buttons */}
+      <div className="SithAuthTopRight">
+        {user ? (
+          <>
+            <span className="SithUserStatus">{user.guest ? 'Guest' : user.username}</span>
+            <button className="SithButton" onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <button className="SithButton" onClick={() => openAuth('signin')}>Sign In</button>
+            <button className="SithButton" onClick={() => openAuth('signup')}>Sign Up</button>
+          </>
+        )}
+      </div>
       {/* Reward Modal */}
       {showReward && (
         <div className="SithRewardModal" onClick={() => setShowReward(false)}>
@@ -298,7 +424,17 @@ function App() {
           </div>
           <h1>Order 66 Productivity</h1>
           <p className="SithMotto">"{quote}"</p>
-          <button className="SithButton" onClick={randomQuote}>Inspire Me</button>
+          <div className="SithHeaderActions">
+            <button className="SithButton" onClick={randomQuote}>Inspire Me</button>
+            <a
+              className="SithButton SithSpotifyBtn"
+              href="https://open.spotify.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Spotify
+            </a>
+          </div>
         </header>
         <main>
           <section className="SithSection" ref={tasksRef}>
