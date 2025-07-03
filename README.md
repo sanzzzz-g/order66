@@ -1,12 +1,12 @@
 # 🛡️ Order 66 - Sith Productivity App
-A dark-themed, full-stack productivity timer app inspired by the Sith Lords.
+A StarWars-themed, full-stack productivity timer app inspired by the Sith Lords.
 > "Execute Order 66... and focus like a true apprentice of the Dark Side."
 
 ----
 🌍 Problem Statement
 
 Procrastination, task switching, and screen fatigue are among the biggest threats to productivity.
-Order 66 combats this by forcing immersive concentration for a fixed 66-minute session — an execution of your distractions in true Sith fashion.
+Order 66 combats this by forcing immersive concentration for a fixed 66-minute session — an execution of your distractions.
 
 ----
 📌 Overview
@@ -92,7 +92,7 @@ cd order66-timer
 - ---
  🎯 Purpose
 -------
-Order 66 was created to help makers, coders, and students eliminate modern distractions and enter a flow state on command — with a little help from the dark side. This is not a timer.
+Order 66 was created to help makers, coders, and students eliminate modern distractions and enter a flow state on command. This is not a timer.
 This is an execution order for procrastination.
 
 
