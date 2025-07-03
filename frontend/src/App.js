@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import PomodoroTimer from './PomodoroTimer';
 
@@ -11,10 +11,34 @@ const SITH_QUOTES = [
   'The Force shall free me.'
 ];
 
+function getTodayString() {
+  const now = new Date();
+  return now.toISOString().slice(0, 10); // YYYY-MM-DD
+}
+
 function App() {
   const [quote, setQuote] = useState(SITH_QUOTES[0]);
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
+  const [showStats, setShowStats] = useState(false);
+  const [history, setHistory] = useState(() => {
+    const saved = localStorage.getItem('pomodoroHistory');
+    return saved ? JSON.parse(saved) : {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem('pomodoroHistory', JSON.stringify(history));
+  }, [history]);
+
+  const handleClearHistory = () => {
+    setHistory({});
+  };
+
+  const today = getTodayString();
+  const todayHistory = history[today] || [];
+  const sessionLength = 25;
+  const todayPomodoros = todayHistory.filter(h => h.type === 'work').length;
+  const todayFocusMinutes = todayPomodoros * sessionLength;
 
   const addTask = () => {
     if (task.trim()) {
@@ -67,6 +91,28 @@ function App() {
         <section className="SithSection">
           <h2>Pomodoro Timer</h2>
           <PomodoroTimer />
+        </section>
+        <section className="SithSection">
+          <h2>Stats & History</h2>
+          <button className="SithButton" onClick={() => setShowStats(s => !s)}>{showStats ? 'Hide Stats' : 'Show Stats'}</button>
+          {showStats && (
+            <div style={{background: '#2d0606', color: '#fff', borderRadius: 8, padding: 12, marginTop: 10}}>
+              <h3 style={{margin: '0 0 8px 0', color: '#ff2d2d'}}>Today's Stats</h3>
+              <div>Pomodoros completed: <b>{todayPomodoros}</b></div>
+              <div>Total focus time: <b>{todayFocusMinutes}</b> min</div>
+              <h4 style={{margin: '12px 0 4px 0', color: '#ff2d2d'}}>History</h4>
+              <ul style={{maxHeight: 120, overflowY: 'auto', padding: 0, margin: 0, listStyle: 'none'}}>
+                {todayHistory.length === 0 && <li>No Pomodoros yet today.</li>}
+                {todayHistory.map((h, i) => (
+                  <li key={i} style={{marginBottom: 4}}>
+                    {h.type === 'work' ? 'Pomodoro completed at ' : ''}
+                    {new Date(h.timestamp).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}
+                  </li>
+                ))}
+              </ul>
+              <button className="SithButton" style={{marginTop: 8}} onClick={handleClearHistory}>Clear History</button>
+            </div>
+          )}
         </section>
       </main>
     </div>
