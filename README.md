@@ -11,7 +11,7 @@ Order 66 combats this by forcing immersive concentration for a fixed 66-minute s
 ----
 📌 Overview
 
-Order 66 integrates immersive design, ambient sound, and screen-locking utilities to create an environment optimized for single-task productivity. It’s perfect for:
+Order 66 integrates immersive design, ambient sound, and screen-locking utilities to create an environment optimized for single-task productivity. It's perfect for:
 
 - Deep work sprints
 - Study sessions
@@ -92,7 +92,7 @@ cd order66-timer
 - ---
  🎯 Purpose
 -------
-Order 66 was created to help makers, coders, and students eliminate modern distractions and enter a flow state on command. This is not a timer.
+Order 66 was created to help makers, coders, and students eliminate modern distractions and enter a flow state on command — with a little help. This is not a timer.
 This is an execution order for procrastination.
 
 
