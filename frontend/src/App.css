@@ -763,3 +763,149 @@
   margin-right: 0.3rem;
   letter-spacing: 0.05em;
 }
+
+.FocusOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 10, 10, 0.92);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.FocusExitBtn {
+  font-size: 1.2rem;
+  padding: 1rem 2.5rem;
+  background: #b1060f;
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 0 16px #b1060f44;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s;
+}
+.FocusExitBtn:hover {
+  background: #fff;
+  color: #b1060f;
+}
+
+.TimerPromptOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.TimerPromptModal {
+  background: #181012;
+  border: 2px solid #b1060f;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  color: #fff;
+  min-width: 320px;
+  box-shadow: 0 0 24px #b1060f88;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SithSaberBarWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 1.2rem 0 1.5rem 0;
+}
+.SithSaberBar {
+  position: relative;
+  width: 320px;
+  height: 18px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+}
+.SithSaberBlade {
+  height: 10px;
+  background: linear-gradient(90deg, #ff2d2d 0%, #b1060f 80%, #fff 100%);
+  box-shadow: 0 0 16px 4px #ff2d2d88, 0 0 32px 8px #b1060f44;
+  border-radius: 6px 0 0 6px;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1);
+  position: absolute;
+  left: 0;
+  top: 4px;
+  z-index: 1;
+}
+.SithSaberHilt {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 22px;
+  height: 18px;
+  background: linear-gradient(135deg, #222 60%, #444 100%);
+  border-radius: 6px;
+  border: 2px solid #111;
+  box-shadow: 0 0 6px #000a;
+  z-index: 2;
+}
+.SithShareStreakBtn {
+  background: linear-gradient(90deg, #b1060f 0%, #2a161a 100%);
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  padding: 0.5rem 1.4rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  box-shadow: 0 0 8px #b1060f22;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.SithShareStreakBtn:hover {
+  background: linear-gradient(90deg, #2a161a 0%, #b1060f 100%);
+  color: #fff;
+  box-shadow: 0 0 16px #b1060f44;
+}
+
+.CongratsModalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.CongratsModal {
+  background: #181012;
+  border: 2px solid #b1060f;
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  color: #fff;
+  min-width: 320px;
+  box-shadow: 0 0 24px #b1060f88;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.SithStatsSection {
+  margin-top: 2.5rem;
+  background: #181012;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 0 16px #b1060f22;
+  color: #fff;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.SithStatsSection h2 {
+  color: #b1060f;
+  margin-bottom: 1.2rem;
+}
+.SithStatsRow {
+  font-size: 1.1rem;
+  margin-bottom: 0.7rem;
+}

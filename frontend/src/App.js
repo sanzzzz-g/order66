@@ -226,6 +226,33 @@ function App() {
   };
 
   // Pomodoro complete logic
+  const [notificationsEnabled, setNotificationsEnabled] = useState(() => {
+    return localStorage.getItem('notificationsEnabled') === 'true';
+  });
+  const [notificationPermission, setNotificationPermission] = useState(Notification.permission);
+
+  const handleToggleNotifications = async () => {
+    if (!notificationsEnabled) {
+      const permission = await Notification.requestPermission();
+      setNotificationPermission(permission);
+      if (permission === 'granted') {
+        setNotificationsEnabled(true);
+        localStorage.setItem('notificationsEnabled', 'true');
+      }
+    } else {
+      setNotificationsEnabled(false);
+      localStorage.setItem('notificationsEnabled', 'false');
+    }
+  };
+
+  const showNotification = (title, body) => {
+    if (notificationsEnabled && notificationPermission === 'granted') {
+      new Notification(title, { body });
+    }
+  };
+
+  const [showCongrats, setShowCongrats] = useState(false);
+
   const onPomodoroComplete = () => {
     const today = getTodayKey();
     setPomodoroCount((prev) => prev + 1);
@@ -246,6 +273,8 @@ function App() {
       `${SITH_MOTIVATION[Math.floor(Math.random() * SITH_MOTIVATION.length)]}\n+${pomodoroMinutes} XP earned!`
     );
     setShowReward(true);
+    showNotification('Pomodoro Complete!', 'Take a break or start your next session!');
+    setShowCongrats(true);
   };
 
   // Sith rank logic
@@ -314,8 +343,109 @@ function App() {
 
   const handleLogout = () => setUser(null);
 
+  const [focusMode, setFocusMode] = useState(false);
+  const appRef = useRef(null);
+
+  // Focus mode handlers
+  const handleFocusMode = () => {
+    setFocusMode(true);
+    if (appRef.current) {
+      if (appRef.current.requestFullscreen) {
+        appRef.current.requestFullscreen();
+      } else if (appRef.current.webkitRequestFullscreen) {
+        appRef.current.webkitRequestFullscreen();
+      } else if (appRef.current.mozRequestFullScreen) {
+        appRef.current.mozRequestFullScreen();
+      } else if (appRef.current.msRequestFullscreen) {
+        appRef.current.msRequestFullscreen();
+      }
+    }
+  };
+  const handleExitFocusMode = () => {
+    setFocusMode(false);
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  };
+
+  // Exit focus mode if user exits fullscreen via browser
+  React.useEffect(() => {
+    function onFullscreenChange() {
+      if (!document.fullscreenElement) setFocusMode(false);
+    }
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+  }, []);
+
+  const [showTimerPrompt, setShowTimerPrompt] = useState(true);
+  const [showCustomInput, setShowCustomInput] = useState(false);
+  const [customInput, setCustomInput] = useState(66);
+  const [customError, setCustomError] = useState('');
+
+  // Timer prompt handlers
+  const handleUseDefault = () => {
+    setPomodoroMinutes(66);
+    setShowTimerPrompt(false);
+  };
+  const handleShowCustom = () => {
+    setShowCustomInput(true);
+  };
+  const handleCustomSubmit = (e) => {
+    e.preventDefault();
+    if (customInput < 1 || customInput > 120) {
+      setCustomError('Please enter a value between 1 and 120.');
+      return;
+    }
+    setPomodoroMinutes(customInput);
+    setShowTimerPrompt(false);
+    setCustomError('');
+  };
+
+  // Lightsaber progress calculation
+  const saberProgress = 1 - secondsLeft / (pomodoroMinutes * 60);
+
+  // Share streak handler
+  const handleShareStreak = () => {
+    const msg = `I've completed a ${streak}-day Sith focus streak with Order 66! #SithProductivity`;
+    if (navigator.share) {
+      navigator.share({ title: 'Order 66 Streak', text: msg, url: window.location.href });
+    } else {
+      navigator.clipboard.writeText(msg);
+      alert('Streak copied to clipboard!');
+    }
+  };
+
   return (
-    <div className="SithLayout">
+    <div className="SithLayout" ref={appRef}>
+      {/* Removed BubblesLeft animation */}
+      {focusMode && <div className="FocusOverlay" onClick={handleExitFocusMode}><button className="SithButton FocusExitBtn" onClick={handleExitFocusMode}>Exit Focus Mode</button></div>}
+      {showTimerPrompt && (
+        <div className="TimerPromptOverlay">
+          <div className="TimerPromptModal">
+            <h2>Pomodoro Timer Setup</h2>
+            <p>Default Pomodoro timer is <b>66 minutes</b>.<br/>Would you like to use this, or enter a custom duration?</p>
+            {!showCustomInput ? (
+              <div style={{ display: 'flex', gap: 12, margin: '1rem 0' }}>
+                <button className="SithButton" onClick={handleUseDefault}>Use 66 min</button>
+                <button className="SithButton" onClick={handleShowCustom}>Custom</button>
+              </div>
+            ) : (
+              <form onSubmit={handleCustomSubmit} style={{ display: 'flex', alignItems: 'center', gap: 6, margin: '1rem 0' }}>
+                <input
+                  type="number"
+                  min="1"
+                  max="120"
+                  value={customInput}
+                  onChange={e => setCustomInput(Number(e.target.value))}
+                  style={{ width: 60, padding: '0.3rem 0.5rem', borderRadius: 8, border: '1px solid #2a161a', background: '#1a0d0d', color: '#fff' }}
+                />
+                <button className="SithButton" type="submit">Set Timer</button>
+              </form>
+            )}
+            {customError && <div style={{ color: '#ff2d2d', marginTop: 8 }}>{customError}</div>}
+          </div>
+        </div>
+      )}
       {/* Auth Modal */}
       {authModal && (
         <div className="SithRewardModal" onClick={closeAuth}>
@@ -381,6 +511,16 @@ function App() {
           </div>
         </div>
       )}
+      {/* Congratulations Modal */}
+      {showCongrats && (
+        <div className="CongratsModalOverlay">
+          <div className="CongratsModal">
+            <h2>Congratulations!</h2>
+            <p>You completed your Pomodoro session.<br />Embrace your power!</p>
+            <button className="SithButton" onClick={() => setShowCongrats(false)}>Close</button>
+          </div>
+        </div>
+      )}
       {/* Sidebar overlay for mobile/desktop */}
       <div className={`SithSidebarOverlay${sidebarOpen ? ' open' : ''}`} onClick={() => setSidebarOpen(false)} />
       <nav className={`SithSidebarDrawer${sidebarOpen ? ' open' : ''}`}>
@@ -425,7 +565,7 @@ function App() {
           <h1>Order 66 Productivity</h1>
           <p className="SithMotto">"{quote}"</p>
           <div className="SithHeaderActions">
-            <button className="SithButton" onClick={randomQuote}>Inspire Me</button>
+          <button className="SithButton" onClick={randomQuote}>Inspire Me</button>
             <a
               className="SithButton SithSpotifyBtn"
               href="https://open.spotify.com/"
@@ -471,6 +611,19 @@ function App() {
                 onChange={e => setPomodoroMinutes(Math.max(1, Math.min(120, Number(e.target.value))))}
                 disabled={isRunning}
               />
+              <button className="SithButton" onClick={handleToggleNotifications} style={{ marginLeft: 12 }}>
+                {notificationsEnabled ? 'Disable Desktop Notifications' : 'Enable Desktop Notifications'}
+              </button>
+              {notificationPermission === 'denied' && (
+                <span style={{ color: '#ff2d2d', marginLeft: 8 }}>Notifications are blocked in your browser settings.</span>
+              )}
+            </div>
+            {/* Lightsaber progress bar */}
+            <div className="SithSaberBarWrap">
+              <div className="SithSaberBar">
+                <div className="SithSaberBlade" style={{ width: `${Math.max(0, Math.min(1, saberProgress)) * 100}%` }} />
+                <div className="SithSaberHilt" />
+              </div>
             </div>
             <div className="SithPomodoro">
               <div className="SithTimerDisplay">{formatTime(secondsLeft)}</div>
@@ -478,9 +631,20 @@ function App() {
                 <button className="SithButton" onClick={startTimer} disabled={isRunning || secondsLeft === 0}>Start</button>
                 <button className="SithButton" onClick={pauseTimer} disabled={!isRunning}>Pause</button>
                 <button className="SithButton" onClick={resetTimer}>Reset</button>
+                {!focusMode && <button className="SithButton" onClick={handleFocusMode}>Focus Mode</button>}
               </div>
               {secondsLeft === 0 && <div className="SithTimerEnd">Pomodoro Complete! Embrace your power.</div>}
             </div>
+          </section>
+          {/* Stats Section */}
+          <section className="SithSection SithStatsSection">
+            <h2>Stats</h2>
+            <div className="SithStatsRow"><b>Current Streak:</b> {streak} days</div>
+            <div className="SithStatsRow"><b>Total Pomodoros:</b> {pomodoroCount}</div>
+            <div className="SithStatsRow"><b>XP Earned:</b> {xp}</div>
+            <button className="SithButton SithShareStreakBtn" onClick={handleShareStreak} style={{ marginTop: 16 }}>
+              Share Your Streak
+            </button>
           </section>
           <section className="SithSection" ref={calendarRef}>
             <h2>Calendar</h2>
