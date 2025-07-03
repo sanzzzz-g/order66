@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import PomodoroTimer from './PomodoroTimer';
 
 const SITH_QUOTES = [
   'Peace is a lie, there is only passion.',
@@ -65,7 +66,7 @@ function App() {
         </section>
         <section className="SithSection">
           <h2>Pomodoro Timer</h2>
-          <div className="SithPomodoro">[Coming Soon]</div>
+          <PomodoroTimer />
         </section>
       </main>
     </div>
