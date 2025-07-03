@@ -38,70 +38,74 @@
 }
 
 .SithApp {
-  background: linear-gradient(135deg, #1a0000 0%, #2d0606 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0d0d 100%);
   min-height: 100vh;
-  color: #ff2d2d;
-  font-family: 'Orbitron', 'Segoe UI', 'Arial', sans-serif;
+  color: #b1060f;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
   padding: 0;
   margin: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .SithHeader {
-  background: #1a0000;
+  background: #181012;
   padding: 2rem 0 1rem 0;
   text-align: center;
-  border-bottom: 2px solid #ff2d2d;
-  box-shadow: 0 2px 8px #000a;
+  border-bottom: 2px solid #2a161a;
+  box-shadow: 0 2px 12px #000a;
+  border-radius: 0 0 24px 24px;
 }
 
 .SithHeader h1 {
-  font-size: 2.5rem;
-  letter-spacing: 0.2em;
-  color: #ff2d2d;
+  font-size: 2.2rem;
+  letter-spacing: 0.15em;
+  color: #b1060f;
   margin-bottom: 0.5rem;
-  text-shadow: 0 0 10px #ff2d2d88, 0 0 2px #fff;
+  text-shadow: 0 0 10px #b1060f88, 0 0 2px #fff1;
 }
 
 .SithMotto {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #fff;
   margin-bottom: 1rem;
   font-style: italic;
-  text-shadow: 0 0 8px #ff2d2d88;
+  text-shadow: 0 0 8px #b1060f88;
 }
 
 .SithButton {
-  background: #ff2d2d;
-  color: #1a0000;
+  background: linear-gradient(90deg, #2a161a 0%, #b1060f 100%);
+  color: #fff;
   border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1.2rem;
+  border-radius: 18px;
+  padding: 0.5rem 1.4rem;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   margin-left: 0.5rem;
-  box-shadow: 0 0 8px #ff2d2d88;
-  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 0 8px #b1060f22;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
 }
 .SithButton:hover {
-  background: #fff;
-  color: #ff2d2d;
+  background: linear-gradient(90deg, #b1060f 0%, #2a161a 100%);
+  color: #fff;
+  box-shadow: 0 0 16px #b1060f44;
 }
 
 .SithSection {
-  background: #2d0606cc;
+  background: #181012ee;
   margin: 2rem auto;
   padding: 2rem 2rem 1rem 2rem;
-  border-radius: 12px;
+  border-radius: 24px;
   max-width: 420px;
-  box-shadow: 0 0 24px #000a;
+  box-shadow: 0 0 32px #000a;
 }
 
 .SithSection h2 {
-  color: #ff2d2d;
+  color: #b1060f;
   margin-bottom: 1rem;
   letter-spacing: 0.1em;
-  text-shadow: 0 0 6px #ff2d2d88;
+  text-shadow: 0 0 6px #b1060f88;
 }
 
 .SithTodoInput {
@@ -112,9 +116,9 @@
 .SithTodoInput input {
   flex: 1;
   padding: 0.5rem;
-  border: 1px solid #ff2d2d;
-  border-radius: 4px;
-  background: #1a0000;
+  border: 1px solid #2a161a;
+  border-radius: 14px;
+  background: #181012;
   color: #fff;
   font-size: 1rem;
   margin-right: 0.5rem;
@@ -128,18 +132,38 @@
 .SithTodoList li {
   display: flex;
   align-items: center;
-  background: #1a0000cc;
+  background: #1a0d0dcc;
   margin-bottom: 0.5rem;
   padding: 0.5rem 0.75rem;
-  border-radius: 4px;
+  border-radius: 14px;
   color: #fff;
   font-size: 1.1rem;
-  box-shadow: 0 0 4px #ff2d2d44;
+  box-shadow: 0 0 8px #b1060f11;
   transition: background 0.2s;
+}
+.SithTodoList li.done {
+  position: relative;
+  overflow: hidden;
+}
+.SithTodoList li.done .SithTaskLight {
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(90deg, transparent 0%, #b1060f88 50%, transparent 100%);
+  animation: sith-light-sweep 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes sith-light-sweep {
+  0% { left: -100%; opacity: 0.7; }
+  50% { left: 0%; opacity: 1; }
+  100% { left: 100%; opacity: 0; }
 }
 .SithTodoList li.done span {
   text-decoration: line-through;
-  color: #ff2d2d88;
+  color: #b1060f88;
 }
 .SithTodoList li span {
   flex: 1;
@@ -148,23 +172,525 @@
 .SithRemove {
   background: none;
   border: none;
-  color: #ff2d2d;
+  color: #b1060f;
   font-size: 1.1rem;
   margin-left: 0.5rem;
   cursor: pointer;
-  transition: color 0.2s;
+  border-radius: 50%;
+  transition: color 0.2s, background 0.2s;
+  padding: 0.2rem 0.5rem;
 }
 .SithRemove:hover {
   color: #fff;
+  background: #b1060f;
 }
 
 .SithPomodoro {
-  background: #1a0000;
-  color: #ff2d2d;
+  background: #181012;
+  color: #b1060f;
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 18px;
   text-align: center;
   font-size: 1.3rem;
-  box-shadow: 0 0 8px #ff2d2d44;
+  box-shadow: 0 0 8px #b1060f22;
   margin-top: 0.5rem;
+}
+.SithTimerDisplay {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 12px #b1060f88, 0 0 2px #fff1;
+}
+.SithTimerControls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.SithTimerEnd {
+  color: #b1060f;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-shadow: 0 0 8px #b1060f88;
+  animation: sith-glow 1s infinite alternate;
+}
+@keyframes sith-glow {
+  from { text-shadow: 0 0 8px #b1060f88; }
+  to { text-shadow: 0 0 24px #b1060f; }
+}
+
+.SithAvatarRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+.SithAvatarName {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #b1060f;
+  text-shadow: 0 0 8px #b1060f88;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  background: #181012;
+  border: 2px solid #2a161a;
+}
+.SithAvatarPicker {
+  display: flex;
+  gap: 0.5rem;
+}
+.SithAvatarPickBtn {
+  background: #181012;
+  color: #b1060f;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 0.3rem 0.7rem;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: border 0.2s, opacity 0.2s, background 0.2s, color 0.2s;
+}
+.SithAvatarPickBtn.selected, .SithAvatarPickBtn:hover {
+  border: 2px solid #b1060f;
+  opacity: 1;
+  background: #b1060f;
+  color: #181012;
+}
+
+.SithLayout {
+  display: flex;
+  min-height: 100vh;
+}
+.SithSidebar {
+  width: 170px;
+  background: #181012;
+  color: #b1060f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  box-shadow: 2px 0 12px #000a;
+  z-index: 10;
+  border-radius: 0 24px 24px 0;
+  border-top-left-radius: 0;
+}
+.SithSidebarTitle {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #b1060f;
+  text-shadow: 0 0 8px #b1060f88;
+}
+.SithSidebar ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+.SithSidebar li {
+  margin: 1rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.SithSidebar button {
+  background: none;
+  border: none;
+  color: #b1060f;
+  font-size: 1.1rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 14px;
+  transition: background 0.2s, color 0.2s;
+}
+.SithSidebar button:hover {
+  background: #b1060f;
+  color: #181012;
+}
+
+.SithCalendarWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.SithCalendar {
+  background: #181012 !important;
+  color: #b1060f !important;
+  border-radius: 18px;
+  box-shadow: 0 0 16px #b1060f22;
+  border: 1px solid #2a161a;
+  padding: 0.5rem;
+}
+.SithCalendar abbr {
+  color: #b1060f !important;
+  text-decoration: none;
+}
+.SithCalendar .react-calendar__tile--active {
+  background: #b1060f !important;
+  color: #181012 !important;
+  border-radius: 10px;
+}
+.SithCalendar .react-calendar__tile--now {
+  background: #2a161a !important;
+  color: #fff !important;
+  border-radius: 10px;
+}
+.SithCalendarTasks {
+  width: 100%;
+  max-width: 320px;
+  background: #181012cc;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 0 8px #b1060f22;
+  color: #fff;
+}
+.SithCalendarTasks h3 {
+  color: #b1060f;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.SithCalendarTasks ul {
+  list-style: disc inside;
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+}
+.SithCalendarTasks li {
+  margin-bottom: 0.25rem;
+  color: #fff;
+}
+
+.SithCalendar .react-calendar__navigation__label,
+.SithCalendar .react-calendar__navigation__arrow,
+.SithCalendar .react-calendar__navigation button {
+  color: #b1060f !important;
+  font-weight: bold;
+  font-size: 1.1rem;
+  background: none !important;
+}
+
+@media (max-width: 800px) {
+  .SithLayout {
+    flex-direction: column;
+  }
+  .SithSidebar {
+    flex-direction: row;
+    width: 100vw;
+    height: 56px;
+    padding: 0;
+    box-shadow: 0 2px 12px #000a;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 0 0 24px 24px;
+    border-top-left-radius: 0;
+  }
+  .SithSidebarTitle {
+    font-size: 1.5rem;
+    margin: 0 1rem 0 0.5rem;
+  }
+  .SithSidebar ul {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    margin: 0;
+  }
+  .SithSidebar li {
+    margin: 0 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .SithSection {
+    max-width: 98vw;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+    border-radius: 18px;
+  }
+  .SithHeader h1 {
+    font-size: 1.3rem;
+  }
+  .SithAvatarRow {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .SithAvatarName {
+    font-size: 1rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 8px;
+  }
+  .SithAvatarPickBtn {
+    font-size: 0.9rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+  }
+  .SithTimerDisplay {
+    font-size: 1.5rem;
+  }
+  .SithCalendar {
+    border-radius: 10px;
+  }
+  .SithCalendarTasks {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+}
+
+.SithSidebarMenuBtn {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  background: #181012;
+  color: #b1060f;
+  border: none;
+  border-radius: 50%;
+  font-size: 2rem;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  z-index: 30;
+  box-shadow: 0 0 8px #b1060f22;
+  transition: background 0.2s, color 0.2s;
+}
+.SithSidebarMenuBtn:hover {
+  background: #b1060f;
+  color: #181012;
+}
+
+.SithSidebarOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10,10,10,0.5);
+  z-index: 19;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.SithSidebarOverlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.SithSidebarDrawer {
+  position: fixed;
+  top: 0;
+  left: -240px;
+  width: 220px;
+  height: 100vh;
+  background: #181012;
+  color: #b1060f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+  box-shadow: 2px 0 24px #000a;
+  z-index: 20;
+  border-radius: 0 24px 24px 0;
+  border-top-left-radius: 0;
+  transition: left 0.3s;
+}
+.SithSidebarDrawer.open {
+  left: 0;
+}
+.SithSidebarClose {
+  background: none;
+  border: none;
+  color: #b1060f;
+  font-size: 2rem;
+  cursor: pointer;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 21;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  transition: background 0.2s, color 0.2s;
+}
+.SithSidebarClose:hover {
+  background: #b1060f;
+  color: #181012;
+}
+.SithSidebarDrawer ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  margin-top: 2rem;
+}
+.SithSidebarDrawer li {
+  margin: 1rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.SithSidebarDrawer button {
+  background: none;
+  border: none;
+  color: #b1060f;
+  font-size: 1.1rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 14px;
+  transition: background 0.2s, color 0.2s;
+}
+.SithSidebarDrawer button:hover {
+  background: #b1060f;
+  color: #181012;
+}
+
+@media (max-width: 800px) {
+  .SithSidebarDrawer {
+    width: 100vw;
+    left: -100vw;
+    border-radius: 0 0 24px 24px;
+    border-top-left-radius: 0;
+    height: 320px;
+    top: 0;
+    box-shadow: 0 2px 24px #000a;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: 1.2rem;
+  }
+  .SithSidebarDrawer.open {
+    left: 0;
+  }
+  .SithSidebarDrawer ul {
+    flex-direction: row;
+    display: flex;
+    width: auto;
+    margin: 0 0 0 2rem;
+    align-items: center;
+  }
+  .SithSidebarDrawer li {
+    margin: 0 0.5rem;
+  }
+  .SithSidebarClose {
+    right: 1.2rem;
+    top: 1.2rem;
+  }
+}
+
+.SithRankBar {
+  margin: 1.2rem auto 0.5rem auto;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+.SithRank {
+  color: #b1060f;
+  font-weight: bold;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+}
+.SithRankProgress {
+  width: 100%;
+  height: 10px;
+  background: #1a0d0d;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0.2rem 0;
+  box-shadow: 0 0 4px #b1060f44;
+}
+.SithRankProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #b1060f 0%, #2a161a 100%);
+  border-radius: 8px;
+  transition: width 0.5s;
+}
+.SithRankNext {
+  color: #fff;
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+.SithStreak {
+  color: #b1060f;
+  font-weight: bold;
+  margin: 0.5rem 0 0.2rem 0;
+  font-size: 1.05rem;
+}
+.SithBadges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.SithBadge {
+  background: #b1060f;
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.95rem;
+  font-weight: bold;
+  box-shadow: 0 0 6px #b1060f44;
+  letter-spacing: 0.05em;
+}
+.SithAvatarPickBtn[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #181012;
+  color: #888;
+  border: 2px solid #222;
+}
+.SithAvatarLock {
+  margin-left: 0.3em;
+  font-size: 1.1em;
+}
+.SithRewardModal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10,10,10,0.7);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.SithRewardContent {
+  background: #181012;
+  color: #b1060f;
+  border-radius: 18px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 0 32px #b1060f44;
+  text-align: center;
+  min-width: 260px;
+  max-width: 90vw;
+}
+.SithRewardContent h2 {
+  color: #b1060f;
+  margin-bottom: 0.7rem;
+}
+.SithRewardContent p {
+  color: #fff;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.SithPomodoroSettings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.SithPomodoroSettings label {
+  color: #b1060f;
+  font-weight: bold;
+}
+.SithPomodoroSettings input[type="number"] {
+  width: 60px;
+  padding: 0.3rem 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #2a161a;
+  background: #181012;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+.SithPomodoroSettings input[type="number"]:focus {
+  border: 1.5px solid #b1060f;
 }
