@@ -1,99 +1,203 @@
 # 🛡️ Order 66 - Sith Productivity App
-A StarWars-themed, full-stack productivity timer app inspired by the Sith Lords.
+
 > "Execute Order 66... and focus like a true apprentice of the Dark Side."
 
-----
-🌍 Problem Statement
+A Star Wars-themed, full-stack productivity timer app that transforms your focus sessions into an immersive Sith experience. Built with React, Node.js, and Socket.IO for real-time collaboration.
 
-Procrastination, task switching, and screen fatigue are among the biggest threats to productivity.
-Order 66 combats this by forcing immersive concentration for a fixed 66-minute session — an execution of your distractions.
+## 🎯 What is Order 66?
 
-----
-📌 Overview
+Order 66 is a gamified productivity application that combines the Pomodoro Technique with Star Wars Sith theming to create an engaging focus environment. Users complete 25-minute focus sessions (Pomodoros) to gain experience points, unlock Sith ranks, and build streaks while managing tasks and tracking progress.
 
-Order 66 integrates immersive design, ambient sound, and screen-locking utilities to create an environment optimized for single-task productivity. It's perfect for:
+## 🚀 Live Demo
 
-- Deep work sprints
-- Study sessions
-- Creative focus blocks
-- Code marathons
-----
-⚙️ Core Features
-----
-⏱️ Focus Timer (66 Minutes)
-- Start/Pause/Reset controls
-- Auto-alert on completion
-- Time remaining in real-time
-- --
-🚫 Distraction Lock Mode
-- Fullscreen enforcement using the Fullscreen API
-- Dimming overlay to eliminate peripheral distractions
-- Locked interaction until session ends or force-unlocked
-- --
-🔊 Sith Audio + Quote Engine
-- Ambient Sith background sounds
-- Random motivational quotes from Sith Lords (Darth Vader, Palpatine, Kylo Ren)
-- Audio mute/unmute toggle
-- ---
-🧠 Streak Tracking (Local Storage)
-- Stores daily completed session data
-- Visual streak counters (🔥 1-day, 2-day, etc.)
-- Persistent across browser sessions
-- ---
-🎨 Sith-Themed UI & Mascot
-- Dark theme with red-accented highlights
-- Animated Sith mascot or embedded GIF (e.g., Vader breathing, lightsaber ignition)
-- Custom fonts and glows for a cinematic interface
-- ---
-🖥️ Tech Stack
+**🌐 Live Website:** [Order 66 - Sith Productivity App](https://order66-productivity.vercel.app/)
 
-- Layer	Technology
-- Frontend	HTML, CSS (Tailwind or custom), JS / React
-- Timer Logic	JavaScript, setInterval(), Date API
-- Audio	HTML5 <audio> API
-- Storage	Browser localStorage
-- Fullscreen	Fullscreen API
-- Deployment	Vercel
-- ----
-📁 Project Structure (Sample)
--------
-- ├── /assets
-- │   ├── audio/            # Sith background audio
-- │   ├── images/           # Mascot, logos, icons
-- ├── /components           # React components (if applicable)
-- ├── index.html            # Main page (Vanilla)
-- ├── style.css             # Theme + visual styles
-- ├── script.js             # Timer logic (Vanilla)
-- ├── App.jsx               # Main React app (if using React)
-- └── vercel.json           # Vercel deployment config
-----
-🚀 Getting Started
-----
-Clone and run locally:
+## 🛠️ Tech Stack
 
-git clone https://github.com/your-username/order66-timer.git
-cd order66-timer
-----
-# If using plain HTML/CSS/JS
-- open index.html
+### Frontend
+- **React 19.1.0** - Modern UI framework with hooks
+- **React Calendar** - Interactive calendar for task scheduling
+- **Socket.IO Client** - Real-time communication
+- **CSS3** - Custom Sith-themed styling with animations
+- **Local Storage** - Persistent user data and progress
+
+### Backend
+- **Node.js** - Server runtime
+- **Express.js** - RESTful API framework
+- **Socket.IO** - Real-time bidirectional communication
+- **CORS** - Cross-origin resource sharing
+
+### Deployment
+- **Vercel** - Frontend hosting
+- **Render/Railway** - Backend hosting
+
+## 🏆 Chosen Track: **Full Stack**
+
+This project demonstrates full-stack development capabilities with:
+- Modern React frontend with real-time features
+- Node.js backend with Socket.IO for live collaboration
+- Responsive design and progressive web app features
+- Real-time task synchronization across multiple users
+
+## 🌍 Problem Statement
+
+Modern productivity faces three major challenges:
+1. **Procrastination** - Difficulty starting and maintaining focus
+2. **Task Switching** - Constant context switching reducing efficiency
+3. **Lack of Motivation** - No engaging feedback loop for sustained productivity
+
+Order 66 solves these by:
+- **Gamification** - Sith ranking system and XP progression
+- **Immersive Design** - Star Wars theming for engagement
+- **Real-time Collaboration** - Shared task management
+- **Streak Tracking** - Daily habit formation
+- **Focus Mode** - Distraction-free environment
+
+## 💼 Business Model
+
+### Freemium Model
+- **Free Tier**: Basic Pomodoro timer, task management, streak tracking
+- **Premium Features** (Future):
+  - Advanced analytics and insights
+  - Team collaboration features
+  - Custom Sith themes and avatars
+  - Export/import functionality
+  - Priority support
+
+### Monetization Strategy
+- Premium subscription for advanced features
+- Team/enterprise licensing
+- API access for integrations
+- Custom theme marketplace
+
+## 🎖️ Bounties/Challenges Completed
+
+### ✅ Core Features
+- [x] **Pomodoro Timer** - 25-minute focus sessions with start/pause/reset
+- [x] **Sith Ranking System** - XP-based progression (Acolyte → Emperor)
+- [x] **Streak Tracking** - Daily completion tracking with visual indicators
+- [x] **Task Management** - Add, complete, and delete tasks
+- [x] **Real-time Collaboration** - Socket.IO-powered live task sync
+- [x] **Calendar Integration** - Schedule tasks with React Calendar
+- [x] **Focus Mode** - Fullscreen distraction-free environment
+- [x] **Sith Theming** - Dark theme with red accents and animations
+
+### ✅ Advanced Features
+- [x] **3D Walking Sith Character** - Animated mascot with walking cycles
+- [x] **Sith Quotes Engine** - Random motivational quotes from Sith Lords
+- [x] **Avatar System** - Unlockable Sith characters (Vader, Maul, Palpatine, etc.)
+- [x] **Badge System** - Achievement tracking (First Pomodoro, Order 66, etc.)
+- [x] **Yoda Easter Egg** - Hidden Jedi quotes for balance
+- [x] **Local Storage Persistence** - User progress saved across sessions
+- [x] **Responsive Design** - Mobile-friendly interface
+- [x] **PWA Features** - Installable web app
+
+### ✅ Technical Achievements
+- [x] **Real-time Socket.IO Integration** - Live task synchronization
+- [x] **React Hooks Implementation** - Modern state management
+- [x] **CSS Animations** - Smooth transitions and effects
+- [x] **Fullscreen API** - Distraction-free focus mode
+- [x] **Progressive Web App** - Offline capabilities and app-like experience
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/order66.git
+   cd order66
+   ```
+
+2. **Install frontend dependencies**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+3. **Install backend dependencies**
+   ```bash
+   cd ../backend
+   npm install
+   ```
+
+4. **Start the backend server**
+   ```bash
+   npm start
+   # Server runs on http://localhost:5000
+   ```
+
+5. **Start the frontend development server**
+   ```bash
+   cd ../frontend
+   npm start
+   # App runs on http://localhost:3000
+   ```
+
+## 🎮 How to Use
+
+1. **Start a Focus Session**: Click the "Execute Order 66" button to begin a 25-minute Pomodoro
+2. **Manage Tasks**: Add tasks to your list and mark them complete
+3. **Track Progress**: Watch your XP grow and unlock new Sith ranks
+4. **Build Streaks**: Complete daily sessions to maintain your streak
+5. **Collaborate**: Tasks sync in real-time across all connected users
+6. **Schedule**: Use the calendar to plan future tasks
+
+## 🏗️ Project Structure
+
+```
+order66/
+├── frontend/                 # React application
+│   ├── public/              # Static assets
+│   ├── src/
+│   │   ├── App.js          # Main application component
+│   │   ├── PomodoroTimer.js # Timer logic
+│   │   └── App.css         # Sith-themed styles
+│   └── package.json
+├── backend/                  # Node.js server
+│   ├── index.js            # Express server with Socket.IO
+│   └── package.json
+└── README.md
+```
+
+## 🔮 Future Enhancements
+
+- [ ] **Mobile App** - React Native version
+- [ ] **AI Integration** - Smart task suggestions and productivity insights
+- [ ] **Team Features** - Shared workspaces and team analytics
+- [ ] **Custom Themes** - Additional Star Wars character themes
+- [ ] **Advanced Analytics** - Detailed productivity reports
+- [ ] **Integration APIs** - Connect with Todoist, Notion, etc.
+- [ ] **Voice Commands** - Sith-themed voice controls
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Star Wars universe for inspiration
+- Pomodoro Technique for productivity methodology
+- React and Node.js communities for excellent documentation
+- Socket.IO for real-time capabilities
+
 ---
-# If using React (Vite or CRA)
-- npm install
-- npm run dev
-----
-🔮 Future Enhancements
-----
-- 📱 Mobile optimization & PWA support
-- 📊 In-app analytics dashboard (session time, focus rate)
-- 🧠 AI-generated quote engine (custom moods)
-- 🌐 Multilingual Sith quote packs
-- 🎯 Custom session durations + break reminders
-- 🔔 Push notifications for recurring sessions
-- ---
- 🎯 Purpose
--------
-Order 66 was created to help makers, coders, and students eliminate modern distractions and enter a flow state on command — with a little help. This is not a timer.
-This is an execution order for procrastination.
+
+**May the Force be with your productivity!** ⚡
+
+*"Through passion, I gain strength. Through strength, I gain power. Through power, I gain victory."*
 
 
 
