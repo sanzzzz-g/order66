@@ -1,3 +1,10 @@
+## 🧑‍🚀 Meet the Mascot
+
+<p align="center">
+  <img src="Mascott.jpg" width="250" alt="Order 66 Mascot"/>
+</p>
+
+> A loyal servant of the Dark Side — here to keep you productive and fully operational.
 
 
 
