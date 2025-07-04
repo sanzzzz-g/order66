@@ -1055,25 +1055,27 @@
 }
 .SithSaberBar {
   position: relative;
-  width: 320px;
-  height: 18px;
+  width: 380px;
+  height: 22px;
   background: transparent;
   display: flex;
   align-items: center;
   background: #1a0d0d;
-  height: 8px;
-  border-radius: 4px;
+  height: 12px;
+  border-radius: 6px;
   overflow: hidden;
   position: relative;
   transform: translateZ(5px);
   box-shadow: 0 0 10px #b1060f22;
 }
 .SithSaberBlade {
-  height: 10px;
+  height: 14px;
   background: linear-gradient(90deg, #b1060f 0%, #ff4444 50%, #b1060f 100%);
-  border-radius: 4px;
+  border-radius: 6px;
   transition: width 0.3s ease;
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: -1px;
   transform: translateZ(2px);
   box-shadow: 0 0 10px #b1060f, inset 0 0 5px rgba(255, 255, 255, 0.3);
 }
@@ -1093,24 +1095,15 @@
 }
 .SithSaberHilt {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 22px;
-  height: 18px;
-  background: linear-gradient(135deg, #222 60%, #444 100%);
-  border-radius: 6px;
-  border: 2px solid #111;
-  box-shadow: 0 0 6px #000a;
-  z-index: 2;
-  width: 20px;
-  height: 20px;
+  left: -12px;
+  top: -7px;
+  width: 24px;
+  height: 24px;
   background: linear-gradient(45deg, #333 0%, #666 50%, #333 100%);
   border-radius: 50%;
-  position: absolute;
-  right: -10px;
-  top: -6px;
   transform: translateZ(10px);
   box-shadow: 0 0 10px #000;
+  z-index: 2;
 }
 .SithShareStreakBtn {
   background: linear-gradient(90deg, #b1060f 0%, #2a161a 100%);
@@ -1355,6 +1348,7 @@
 
 .SithEyesContainer:hover {
   transform: scale(1.1);
+  filter: brightness(1.2);
 }
 
 .SithEye {
@@ -1402,23 +1396,23 @@
 
 @keyframes eyeGlow {
   0%, 100% { 
-    box-shadow: 0 0 15px #b1060f, inset 0 0 10px #000;
+    box-shadow: 0 0 8px #b1060f, inset 0 0 6px #000;
     border-color: #b1060f;
   }
   50% { 
-    box-shadow: 0 0 25px #ff4444, inset 0 0 15px #000;
+    box-shadow: 0 0 12px #ff4444, inset 0 0 8px #000;
     border-color: #ff4444;
   }
 }
 
 @keyframes innerGlow {
   0%, 100% { 
-    opacity: 0.7;
+    opacity: 0.5;
     transform: translate(-50%, -50%) scale(1);
   }
   50% { 
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
   }
 }
 
@@ -1497,8 +1491,905 @@
 }
 
 .EasterEggCounter {
-  color: #666;
+  color: #b1060f;
   font-size: 0.9rem;
-  margin: 1rem 0;
-  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* 3D Walking Sith Character */
+.WalkingSith {
+  position: fixed;
+  width: 80px;
+  height: 120px;
+  z-index: 1000;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  pointer-events: auto;
+}
+
+.WalkingSith:hover {
+  transform: scale(1.1);
+}
+
+.SithBody {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: perspective(500px) rotateX(10deg);
+}
+
+.SithHead {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 35px;
+}
+
+.SithHelmet {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a161a 0%, #1a0d0d 50%, #0a0a0a 100%);
+  border-radius: 50% 50% 45% 45%;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.SithVisor {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 8px;
+  background: linear-gradient(90deg, #b1060f 0%, #ff2d2d 50%, #b1060f 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 10px #b1060f;
+  animation: visorGlow 2s ease-in-out infinite;
+}
+
+@keyframes visorGlow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.SithBreathingApparatus {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 8px;
+  background: #1a0d0d;
+  border-radius: 0 0 6px 6px;
+  border: 1px solid #2a161a;
+}
+
+.SithTorso {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 45px;
+}
+
+.SithChestPlate {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a161a 0%, #1a0d0d 50%, #0a0a0a 100%);
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+.SithChestPlate::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 25px;
+  background: linear-gradient(90deg, #b1060f 0%, #2a161a 50%, #b1060f 100%);
+  border-radius: 4px;
+  opacity: 0.8;
+}
+
+.SithCape {
+  position: absolute;
+  top: 0;
+  left: -5px;
+  width: 50px;
+  height: 60px;
+  background: linear-gradient(135deg, #1a0d0d 0%, #0a0a0a 100%);
+  border-radius: 0 0 25px 25px;
+  transform: rotateY(-15deg);
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.SithArms {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 30px;
+}
+
+.SithArm {
+  position: absolute;
+  width: 12px;
+  height: 25px;
+  background: linear-gradient(135deg, #2a161a 0%, #1a0d0d 100%);
+  border-radius: 6px;
+  top: 0;
+}
+
+.SithArm.left {
+  left: -15px;
+  transform-origin: top center;
+  animation: leftArmSwing 0.8s ease-in-out infinite;
+}
+
+.SithArm.right {
+  right: -15px;
+  transform-origin: top center;
+  animation: rightArmSwing 0.8s ease-in-out infinite;
+}
+
+@keyframes leftArmSwing {
+  0%, 100% { transform: rotate(-15deg); }
+  50% { transform: rotate(15deg); }
+}
+
+@keyframes rightArmSwing {
+  0%, 100% { transform: rotate(15deg); }
+  50% { transform: rotate(-15deg); }
+}
+
+.SithHand {
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: #1a0d0d;
+  border-radius: 50%;
+  border: 1px solid #2a161a;
+}
+
+.SithLegs {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 40px;
+}
+
+.SithLeg {
+  position: absolute;
+  width: 12px;
+  height: 35px;
+  background: linear-gradient(135deg, #2a161a 0%, #1a0d0d 100%);
+  border-radius: 6px;
+  bottom: 0;
+  transform-origin: top center;
+}
+
+.SithLeg.left {
+  left: 8px;
+}
+
+.SithLeg.right {
+  right: 8px;
+}
+
+/* Walking animations for legs */
+.SithLeg.left.walk-0 { transform: rotate(-5deg); }
+.SithLeg.left.walk-1 { transform: rotate(-10deg); }
+.SithLeg.left.walk-2 { transform: rotate(-15deg); }
+.SithLeg.left.walk-3 { transform: rotate(-20deg); }
+.SithLeg.left.walk-4 { transform: rotate(-15deg); }
+.SithLeg.left.walk-5 { transform: rotate(-10deg); }
+.SithLeg.left.walk-6 { transform: rotate(-5deg); }
+.SithLeg.left.walk-7 { transform: rotate(0deg); }
+
+.SithLeg.right.walk-0 { transform: rotate(15deg); }
+.SithLeg.right.walk-1 { transform: rotate(10deg); }
+.SithLeg.right.walk-2 { transform: rotate(5deg); }
+.SithLeg.right.walk-3 { transform: rotate(0deg); }
+.SithLeg.right.walk-4 { transform: rotate(-5deg); }
+.SithLeg.right.walk-5 { transform: rotate(-10deg); }
+.SithLeg.right.walk-6 { transform: rotate(-15deg); }
+.SithLeg.right.walk-7 { transform: rotate(-20deg); }
+
+.SithFoot {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 8px;
+  background: #0a0a0a;
+  border-radius: 0 0 7px 7px;
+  border: 1px solid #2a161a;
+}
+
+.SithLightsaber {
+  position: absolute;
+  top: 45px;
+  right: -25px;
+  width: 30px;
+  height: 8px;
+  transform: rotate(-45deg);
+}
+
+.SithSaberHilt {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 6px;
+  background: linear-gradient(90deg, #666 0%, #999 50%, #666 100%);
+  border-radius: 3px;
+  border: 1px solid #333;
+}
+
+.SithSaberBlade {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 4px;
+  background: linear-gradient(90deg, #b1060f 0%, #ff2d2d 50%, #b1060f 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 8px #b1060f;
+  animation: saberPulse 1s ease-in-out infinite;
+}
+
+@keyframes saberPulse {
+  0%, 100% { opacity: 0.8; box-shadow: 0 0 8px #b1060f; }
+  50% { opacity: 1; box-shadow: 0 0 12px #ff2d2d; }
+}
+
+.SithShadow {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 15px;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+/* Mobile responsiveness for walking Sith */
+@media (max-width: 800px) {
+  .WalkingSith {
+    width: 60px;
+    height: 90px;
+  }
+  
+  .SithHead {
+    width: 25px;
+    height: 30px;
+  }
+  
+  .SithTorso {
+    top: 30px;
+    width: 30px;
+    height: 35px;
+  }
+  
+  .SithArms {
+    top: 32px;
+    width: 45px;
+    height: 25px;
+  }
+  
+  .SithArm {
+    width: 10px;
+    height: 20px;
+  }
+  
+  .SithLegs {
+    width: 40px;
+    height: 30px;
+  }
+  
+  .SithLeg {
+    width: 10px;
+    height: 28px;
+  }
+  
+  .SithLightsaber {
+    top: 35px;
+    right: -20px;
+    width: 25px;
+    height: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .WalkingSith {
+    width: 50px;
+    height: 75px;
+  }
+  
+  .SithHead {
+    width: 20px;
+    height: 25px;
+  }
+  
+  .SithTorso {
+    top: 25px;
+    width: 25px;
+    height: 30px;
+  }
+  
+  .SithArms {
+    top: 28px;
+    width: 35px;
+    height: 20px;
+  }
+  
+  .SithArm {
+    width: 8px;
+    height: 18px;
+  }
+  
+  .SithLegs {
+    width: 30px;
+    height: 25px;
+  }
+  
+  .SithLeg {
+    width: 8px;
+    height: 22px;
+  }
+  
+  .SithLightsaber {
+    top: 30px;
+    right: -15px;
+    width: 20px;
+    height: 5px;
+  }
+}
+
+/* Floating Sith Character */
+.FloatingSith {
+  position: fixed;
+  width: 120px;
+  height: 180px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+  filter: drop-shadow(0 0 10px rgba(177, 6, 15, 0.3));
+}
+
+.FloatingSith:hover {
+  opacity: 1;
+}
+
+.FloatingAura {
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  right: -30px;
+  bottom: -30px;
+  background: radial-gradient(ellipse, rgba(177, 6, 15, 0.15) 0%, rgba(255, 45, 45, 0.08) 30%, transparent 70%);
+  border-radius: 50%;
+  animation: floatingAura 4s ease-in-out infinite;
+  filter: blur(3px);
+  box-shadow: 
+    0 0 20px rgba(177, 6, 15, 0.2),
+    inset 0 0 10px rgba(255, 45, 45, 0.1);
+}
+
+@keyframes floatingAura {
+  0%, 100% { 
+    opacity: 0.4; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.15);
+  }
+}
+
+.FloatingBody {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: perspective(400px) rotateX(15deg) rotateY(-10deg);
+  filter: blur(0.5px);
+  animation: floatingBodyGlow 6s ease-in-out infinite;
+}
+
+@keyframes floatingBodyGlow {
+  0%, 100% { 
+    filter: blur(0.5px) brightness(1);
+  }
+  50% { 
+    filter: blur(0.8px) brightness(1.2);
+  }
+}
+
+.FloatingHead {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 60px;
+}
+
+.FloatingHelmet {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(42, 22, 26, 0.6) 0%, rgba(26, 13, 13, 0.4) 50%, rgba(10, 10, 10, 0.2) 100%);
+  border-radius: 50% 50% 45% 45%;
+  position: relative;
+  box-shadow: 
+    0 0 15px rgba(177, 6, 15, 0.3),
+    inset 0 0 8px rgba(255, 45, 45, 0.2);
+  border: 2px solid rgba(177, 6, 15, 0.4);
+  animation: floatingHelmetGlow 5s ease-in-out infinite;
+}
+
+@keyframes floatingHelmetGlow {
+  0%, 100% { 
+    box-shadow: 
+      0 0 15px rgba(177, 6, 15, 0.3),
+      inset 0 0 8px rgba(255, 45, 45, 0.2);
+  }
+  50% { 
+    box-shadow: 
+      0 0 25px rgba(255, 45, 45, 0.4),
+      inset 0 0 12px rgba(255, 45, 45, 0.3);
+  }
+}
+
+.FloatingVisor {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 12px;
+  background: linear-gradient(90deg, rgba(177, 6, 15, 0.9) 0%, rgba(255, 45, 45, 1) 50%, rgba(177, 6, 15, 0.9) 100%);
+  border-radius: 4px;
+  box-shadow: 
+    0 0 15px rgba(177, 6, 15, 0.5),
+    inset 0 0 5px rgba(255, 45, 45, 0.4);
+  animation: floatingVisorGlow 3s ease-in-out infinite;
+}
+
+@keyframes floatingVisorGlow {
+  0%, 100% { 
+    opacity: 0.6; 
+    box-shadow: 0 0 15px rgba(177, 6, 15, 0.5);
+  }
+  50% { 
+    opacity: 1; 
+    box-shadow: 0 0 20px rgba(255, 45, 45, 0.6);
+  }
+}
+
+.GhostlyBreathingApparatus {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 6px;
+  background: rgba(26, 13, 13, 0.6);
+  border-radius: 0 0 5px 5px;
+  border: 1px solid rgba(42, 22, 26, 0.4);
+}
+
+.GhostlyTorso {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35px;
+  height: 40px;
+}
+
+.GhostlyChestPlate {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(42, 22, 26, 0.7) 0%, rgba(26, 13, 13, 0.5) 50%, rgba(10, 10, 10, 0.3) 100%);
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 0 15px rgba(177, 6, 15, 0.3);
+  border: 1px solid rgba(177, 6, 15, 0.2);
+}
+
+.GhostlyChestPlate::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 22px;
+  background: linear-gradient(90deg, rgba(177, 6, 15, 0.6) 0%, rgba(42, 22, 26, 0.4) 50%, rgba(177, 6, 15, 0.6) 100%);
+  border-radius: 4px;
+  opacity: 0.6;
+}
+
+.GhostlyCape {
+  position: absolute;
+  top: 0;
+  left: -4px;
+  width: 45px;
+  height: 55px;
+  background: linear-gradient(135deg, rgba(26, 13, 13, 0.4) 0%, rgba(10, 10, 10, 0.2) 100%);
+  border-radius: 0 0 22px 22px;
+  transform: rotateY(-15deg);
+  box-shadow: -2px 0 8px rgba(177, 6, 15, 0.2);
+  animation: ghostlyCapeFloat 6s ease-in-out infinite;
+}
+
+@keyframes ghostlyCapeFloat {
+  0%, 100% { transform: rotateY(-15deg) translateY(0px); }
+  50% { transform: rotateY(-15deg) translateY(-3px); }
+}
+
+.GhostlyArms {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 25px;
+}
+
+.GhostlyArm {
+  position: absolute;
+  width: 10px;
+  height: 22px;
+  background: linear-gradient(135deg, rgba(42, 22, 26, 0.7) 0%, rgba(26, 13, 13, 0.5) 100%);
+  border-radius: 5px;
+  top: 0;
+  border: 1px solid rgba(177, 6, 15, 0.2);
+}
+
+.GhostlyArm.left {
+  left: -12px;
+  transform-origin: top center;
+  animation: ghostlyLeftArmFloat 4s ease-in-out infinite;
+}
+
+.GhostlyArm.right {
+  right: -12px;
+  transform-origin: top center;
+  animation: ghostlyRightArmFloat 4s ease-in-out infinite;
+}
+
+@keyframes ghostlyLeftArmFloat {
+  0%, 100% { transform: rotate(-8deg) translateY(0px); }
+  50% { transform: rotate(-12deg) translateY(-2px); }
+}
+
+@keyframes ghostlyRightArmFloat {
+  0%, 100% { transform: rotate(8deg) translateY(0px); }
+  50% { transform: rotate(12deg) translateY(-2px); }
+}
+
+.GhostlyHand {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  background: rgba(26, 13, 13, 0.6);
+  border-radius: 50%;
+  border: 1px solid rgba(42, 22, 26, 0.4);
+}
+
+.GhostlyLegs {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 35px;
+}
+
+.GhostlyLeg {
+  position: absolute;
+  width: 10px;
+  height: 30px;
+  background: linear-gradient(135deg, rgba(42, 22, 26, 0.7) 0%, rgba(26, 13, 13, 0.5) 100%);
+  border-radius: 5px;
+  bottom: 0;
+  transform-origin: top center;
+  border: 1px solid rgba(177, 6, 15, 0.2);
+}
+
+.GhostlyLeg.left {
+  left: 6px;
+  animation: ghostlyLeftLegFloat 5s ease-in-out infinite;
+}
+
+.GhostlyLeg.right {
+  right: 6px;
+  animation: ghostlyRightLegFloat 5s ease-in-out infinite;
+}
+
+@keyframes ghostlyLeftLegFloat {
+  0%, 100% { transform: rotate(-3deg) translateY(0px); }
+  50% { transform: rotate(-6deg) translateY(-1px); }
+}
+
+@keyframes ghostlyRightLegFloat {
+  0%, 100% { transform: rotate(3deg) translateY(0px); }
+  50% { transform: rotate(6deg) translateY(-1px); }
+}
+
+.GhostlyFoot {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 6px;
+  background: rgba(10, 10, 10, 0.6);
+  border-radius: 0 0 6px 6px;
+  border: 1px solid rgba(42, 22, 26, 0.4);
+}
+
+.GhostlyLightsaber {
+  position: absolute;
+  top: 40px;
+  right: -20px;
+  width: 25px;
+  height: 6px;
+  transform: rotate(-45deg);
+}
+
+.GhostlySaberHilt {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(102, 102, 102, 0.6) 0%, rgba(153, 153, 153, 0.7) 50%, rgba(102, 102, 102, 0.6) 100%);
+  border-radius: 2px;
+  border: 1px solid rgba(51, 51, 51, 0.4);
+}
+
+.GhostlySaberBlade {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(177, 6, 15, 0.8) 0%, rgba(255, 45, 45, 0.9) 50%, rgba(177, 6, 15, 0.8) 100%);
+  border-radius: 1px;
+  box-shadow: 0 0 12px rgba(177, 6, 15, 0.6);
+  animation: ghostlySaberPulse 2s ease-in-out infinite;
+}
+
+@keyframes ghostlySaberPulse {
+  0%, 100% { 
+    opacity: 0.6; 
+    box-shadow: 0 0 12px rgba(177, 6, 15, 0.6);
+  }
+  50% { 
+    opacity: 0.9; 
+    box-shadow: 0 0 20px rgba(255, 45, 45, 0.8);
+  }
+}
+
+.GhostlyParticles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.GhostlyParticle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, rgba(255, 45, 45, 0.6) 0%, rgba(177, 6, 15, 0.4) 70%, transparent 100%);
+  border-radius: 50%;
+  animation: floatingParticleFloat 3s ease-in-out infinite;
+  box-shadow: 
+    0 0 4px rgba(177, 6, 15, 0.3),
+    0 0 8px rgba(255, 45, 45, 0.2);
+}
+
+@keyframes floatingParticleFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0px) scale(0) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-15px) scale(1.2) rotate(180deg);
+  }
+  80% {
+    opacity: 0.8;
+    transform: translateY(-35px) scale(0.8) rotate(360deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0) rotate(540deg);
+  }
+}
+
+.FloatingTrail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.FloatingTrailDot {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(177, 6, 15, 0.4);
+  border-radius: 50%;
+  animation: floatingTrailFloat 2s ease-in-out infinite;
+  box-shadow: 0 0 4px rgba(177, 6, 15, 0.3);
+}
+
+@keyframes floatingTrailFloat {
+  0% {
+    opacity: 0.6;
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateY(-10px) scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0);
+  }
+}
+
+/* Mobile responsiveness for ghostly Sith */
+@media (max-width: 800px) {
+  .GhostlySith {
+    left: -50px;
+    width: 50px;
+    height: 75px;
+  }
+  
+  .GhostlyHead {
+    width: 20px;
+    height: 25px;
+  }
+  
+  .GhostlyTorso {
+    top: 25px;
+    width: 30px;
+    height: 35px;
+  }
+  
+  .GhostlyArms {
+    top: 30px;
+    width: 40px;
+    height: 20px;
+  }
+  
+  .GhostlyArm {
+    width: 8px;
+    height: 18px;
+  }
+  
+  .GhostlyLegs {
+    width: 35px;
+    height: 30px;
+  }
+  
+  .GhostlyLeg {
+    width: 8px;
+    height: 25px;
+  }
+  
+  .GhostlyLightsaber {
+    top: 35px;
+    right: -15px;
+    width: 20px;
+    height: 5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .GhostlySith {
+    left: -40px;
+    width: 40px;
+    height: 60px;
+  }
+  
+  .GhostlyHead {
+    width: 18px;
+    height: 22px;
+  }
+  
+  .GhostlyTorso {
+    top: 22px;
+    width: 25px;
+    height: 30px;
+  }
+  
+  .GhostlyArms {
+    top: 27px;
+    width: 35px;
+    height: 18px;
+  }
+  
+  .GhostlyArm {
+    width: 7px;
+    height: 16px;
+  }
+  
+  .GhostlyLegs {
+    width: 30px;
+    height: 25px;
+  }
+  
+  .GhostlyLeg {
+    width: 7px;
+    height: 22px;
+  }
+  
+  .GhostlyLightsaber {
+    top: 30px;
+    right: -12px;
+    width: 18px;
+    height: 4px;
+  }
+}
+
+/* Sith Eyes for Section Headers */
+.SithEyes {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 1.2rem;
+  cursor: default;
+  transition: all 0.3s ease;
+  animation: sithEyesGlow 2s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.SithEyes:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+@keyframes sithEyesGlow {
+  0%, 100% { 
+    filter: brightness(1) drop-shadow(0 0 5px rgba(177, 6, 15, 0.5));
+  }
+  50% { 
+    filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 45, 45, 0.8));
+  }
 }

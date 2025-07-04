@@ -72,6 +72,90 @@ function getTodayKey() {
   return `${year}-${month}-${day}`;
 }
 
+// 3D Walking Sith Character Component
+const WalkingSith = () => {
+  const [position, setPosition] = useState({ x: 50, y: 50 });
+  const [direction, setDirection] = useState(1); // 1 for right, -1 for left
+  const [isWalking, setIsWalking] = useState(true);
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const walkInterval = setInterval(() => {
+      if (isWalking) {
+        setStep(prev => (prev + 1) % 8);
+        setPosition(prev => {
+          let newX = prev.x + (direction * 2);
+          
+          // Change direction at screen edges
+          if (newX > window.innerWidth - 100) {
+            setDirection(-1);
+            newX = window.innerWidth - 100;
+          } else if (newX < 50) {
+            setDirection(1);
+            newX = 50;
+          }
+          
+          return { x: newX, y: prev.y };
+        });
+      }
+    }, 200);
+
+    return () => clearInterval(walkInterval);
+  }, [isWalking, direction]);
+
+  const handleClick = () => {
+    setIsWalking(!isWalking);
+  };
+
+  return (
+    <div 
+      className="WalkingSith"
+      style={{
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        transform: `scaleX(${direction})`
+      }}
+      onClick={handleClick}
+    >
+      <div className="SithBody">
+        <div className="SithHead">
+          <div className="SithHelmet">
+            <div className="SithVisor"></div>
+            <div className="SithBreathingApparatus"></div>
+          </div>
+        </div>
+        <div className="SithTorso">
+          <div className="SithChestPlate"></div>
+          <div className="SithCape"></div>
+        </div>
+        <div className="SithArms">
+          <div className="SithArm left">
+            <div className="SithHand"></div>
+          </div>
+          <div className="SithArm right">
+            <div className="SithHand"></div>
+          </div>
+        </div>
+        <div className="SithLegs">
+          <div className={`SithLeg left ${isWalking ? `walk-${step}` : ''}`}>
+            <div className="SithFoot"></div>
+          </div>
+          <div className={`SithLeg right ${isWalking ? `walk-${(step + 4) % 8}` : ''}`}>
+            <div className="SithFoot"></div>
+          </div>
+        </div>
+        <div className="SithLightsaber">
+          <div className="SithSaberHilt"></div>
+          <div className="SithSaberBlade"></div>
+        </div>
+      </div>
+      <div className="SithShadow"></div>
+    </div>
+  );
+};
+
+
+
 function App() {
   const [quote, setQuote] = useState(SITH_QUOTES[0]);
   const [task, setTask] = useState('');
@@ -89,6 +173,7 @@ function App() {
   const tasksRef = useRef(null);
   const pomoRef = useRef(null);
   const calendarRef = useRef(null);
+  const statsRef = useRef(null);
 
   // Calendar state
   const [calendarDate, setCalendarDate] = useState(new Date());
@@ -758,7 +843,19 @@ function App() {
         </header>
         <main>
           <section className="SithSection" ref={tasksRef}>
-            <h2>To-Do List</h2>
+            <div className="SithRankRow">
+              <div className="SithEyesContainer">
+                <div className="SithEye left-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+                <div className="SithEye right-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+              </div>
+              <h2>To-Do List</h2>
+            </div>
             <div className="SithTodoInput">
               <input
                 type="text"
@@ -779,7 +876,19 @@ function App() {
             </ul>
           </section>
           <section className="SithSection" ref={pomoRef}>
-            <h2>Pomodoro Timer</h2>
+            <div className="SithRankRow">
+              <div className="SithEyesContainer">
+                <div className="SithEye left-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+                <div className="SithEye right-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+              </div>
+              <h2>Pomodoro Timer</h2>
+            </div>
             <div className="SithPomodoroSettings">
               <label htmlFor="pomodoro-minutes">Minutes: </label>
               <input
@@ -817,8 +926,20 @@ function App() {
             </div>
           </section>
           {/* Stats Section */}
-          <section className="SithSection SithStatsSection">
-            <h2>Stats</h2>
+          <section className="SithSection SithStatsSection" ref={statsRef}>
+            <div className="SithRankRow">
+              <div className="SithEyesContainer">
+                <div className="SithEye left-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+                <div className="SithEye right-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+              </div>
+              <h2>Stats</h2>
+            </div>
             <div className="SithStatsRow"><b>Current Streak:</b> {streak} days</div>
             <div className="SithStatsRow"><b>Total Pomodoros:</b> {pomodoroCount}</div>
             <div className="SithStatsRow"><b>XP Earned:</b> {xp}</div>
@@ -827,7 +948,19 @@ function App() {
             </button>
           </section>
           <section className="SithSection" ref={calendarRef}>
-            <h2>Calendar</h2>
+            <div className="SithRankRow">
+              <div className="SithEyesContainer">
+                <div className="SithEye left-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+                <div className="SithEye right-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+              </div>
+              <h2>Calendar</h2>
+            </div>
             <div className="SithCalendarWrap">
               <Calendar
                 onChange={setCalendarDate}
