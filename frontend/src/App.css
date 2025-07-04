@@ -46,6 +46,8 @@
   margin: 0;
   flex: 1;
   min-width: 0;
+  perspective: 1000px;
+  overflow-x: hidden;
 }
 
 .SithHeader {
@@ -55,6 +57,26 @@
   border-bottom: 2px solid #2a161a;
   box-shadow: 0 2px 12px #000a;
   border-radius: 0 0 24px 24px;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  position: relative;
+}
+
+.SithHeader::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(177, 6, 15, 0.1) 50%, transparent 70%);
+  transform: translateZ(-10px);
+  animation: headerGlow 4s ease-in-out infinite;
+}
+
+@keyframes headerGlow {
+  0%, 100% { opacity: 0.3; transform: translateZ(-10px) translateX(-100%); }
+  50% { opacity: 0.8; transform: translateZ(-10px) translateX(100%); }
 }
 
 .SithHeader h1 {
@@ -63,6 +85,12 @@
   color: #b1060f;
   margin-bottom: 0.5rem;
   text-shadow: 0 0 10px #b1060f88, 0 0 2px #fff1;
+  transform: translateZ(20px);
+  transition: transform 0.3s ease;
+}
+
+.SithHeader h1:hover {
+  transform: translateZ(30px) scale(1.05);
 }
 
 .SithMotto {
@@ -71,6 +99,12 @@
   margin-bottom: 1rem;
   font-style: italic;
   text-shadow: 0 0 8px #b1060f88;
+  transform: translateZ(10px);
+  transition: transform 0.3s ease;
+}
+
+.SithMotto:hover {
+  transform: translateZ(15px) scale(1.02);
 }
 
 .SithButton {
@@ -84,12 +118,60 @@
   cursor: pointer;
   margin-left: 0.5rem;
   box-shadow: 0 0 8px #b1060f22;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  position: relative;
 }
+
+.SithButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  border-radius: 18px;
+  transform: translateZ(-5px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
 .SithButton:hover {
   background: linear-gradient(90deg, #b1060f 0%, #2a161a 100%);
   color: #fff;
-  box-shadow: 0 0 16px #b1060f44;
+  box-shadow: 0 8px 25px #b1060f44, 0 0 16px #b1060f44;
+  transform: translateZ(10px) scale(1.05);
+}
+
+.SithButton:hover::before {
+  opacity: 1;
+}
+
+.SithButton:active {
+  transform: translateZ(5px) scale(0.98);
+}
+
+.SithButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: translateZ(0) scale(1);
+  background: linear-gradient(90deg, #1a0d0d 0%, #2a161a 100%);
+  color: #666;
+  box-shadow: none;
+}
+
+.SithButton:disabled:hover {
+  transform: translateZ(0) scale(1);
+  box-shadow: none;
+  background: linear-gradient(90deg, #1a0d0d 0%, #2a161a 100%);
+  color: #666;
+}
+
+.SithButton:disabled::before {
+  opacity: 0;
 }
 
 .SithSection {
@@ -99,6 +181,35 @@
   border-radius: 24px;
   max-width: 420px;
   box-shadow: 0 0 32px #000a;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  backdrop-filter: blur(10px);
+}
+
+.SithSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(177, 6, 15, 0.1) 0%, transparent 50%);
+  border-radius: 24px;
+  transform: translateZ(-10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.SithSection:hover {
+  transform: translateZ(20px) scale(1.02);
+  box-shadow: 0 20px 40px #000a, 0 0 20px #b1060f22;
+}
+
+.SithSection:hover::before {
+  opacity: 1;
 }
 
 .SithSection h2 {
@@ -106,6 +217,12 @@
   margin-bottom: 1rem;
   letter-spacing: 0.1em;
   text-shadow: 0 0 6px #b1060f88;
+  transform: translateZ(10px);
+  transition: transform 0.3s ease;
+}
+
+.SithSection:hover h2 {
+  transform: translateZ(15px) scale(1.02);
 }
 
 .SithTodoInput {
@@ -139,12 +256,42 @@
   color: #fff;
   font-size: 1.1rem;
   box-shadow: 0 0 8px #b1060f11;
-  transition: background 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  position: relative;
 }
+
+.SithTodoList li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(177, 6, 15, 0.1) 50%, transparent 70%);
+  border-radius: 14px;
+  transform: translateZ(-5px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.SithTodoList li:hover {
+  transform: translateZ(10px) scale(1.02);
+  box-shadow: 0 5px 15px #b1060f22;
+}
+
+.SithTodoList li:hover::before {
+  opacity: 1;
+}
+
 .SithTodoList li.done {
   position: relative;
   overflow: hidden;
+  transform: translateZ(5px) scale(0.98);
 }
+
 .SithTodoList li.done .SithTaskLight {
   position: absolute;
   left: -100%;
@@ -156,11 +303,13 @@
   background: linear-gradient(90deg, transparent 0%, #b1060f88 50%, transparent 100%);
   animation: sith-light-sweep 0.7s cubic-bezier(0.4,0,0.2,1);
 }
+
 @keyframes sith-light-sweep {
-  0% { left: -100%; opacity: 0.7; }
-  50% { left: 0%; opacity: 1; }
-  100% { left: 100%; opacity: 0; }
+  0% { left: -100%; opacity: 0.7; transform: translateZ(0); }
+  50% { left: 0%; opacity: 1; transform: translateZ(10px); }
+  100% { left: 100%; opacity: 0; transform: translateZ(0); }
 }
+
 .SithTodoList li.done span {
   text-decoration: line-through;
   color: #b1060f88;
@@ -194,20 +343,59 @@
   font-size: 1.3rem;
   box-shadow: 0 0 8px #b1060f22;
   margin-top: 0.5rem;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
+
+.SithPomodoro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(177, 6, 15, 0.1) 0%, transparent 50%);
+  border-radius: 18px;
+  transform: translateZ(-5px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.SithPomodoro:hover {
+  transform: translateZ(15px) scale(1.02);
+  box-shadow: 0 10px 25px #b1060f33;
+}
+
+.SithPomodoro:hover::before {
+  opacity: 1;
+}
+
 .SithTimerDisplay {
   font-size: 2.2rem;
   font-weight: bold;
-  color: #fff;
-  margin-bottom: 1rem;
-  letter-spacing: 0.1em;
-  text-shadow: 0 0 12px #b1060f88, 0 0 2px #fff1;
+  color: #b1060f;
+  text-shadow: 0 0 10px #b1060f88;
+  transform: translateZ(10px);
+  transition: transform 0.3s ease;
+  animation: timerPulse 2s ease-in-out infinite;
 }
+
+@keyframes timerPulse {
+  0%, 100% { transform: translateZ(10px) scale(1); }
+  50% { transform: translateZ(15px) scale(1.05); }
+}
+
 .SithTimerControls {
   display: flex;
   justify-content: center;
   gap: 1rem;
   margin-bottom: 0.5rem;
+  position: relative;
+  z-index: 2;
 }
 .SithTimerEnd {
   color: #b1060f;
@@ -243,22 +431,47 @@
   gap: 0.5rem;
 }
 .SithAvatarPickBtn {
-  background: #181012;
-  color: #b1060f;
-  border: 2px solid transparent;
-  border-radius: 10px;
-  padding: 0.3rem 0.7rem;
-  font-size: 1rem;
-  font-family: inherit;
+  background: #1a0d0d;
+  border: 2px solid #2a161a;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0 0.5rem;
   cursor: pointer;
-  opacity: 0.7;
-  transition: border 0.2s, opacity 0.2s, background 0.2s, color 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  position: relative;
 }
-.SithAvatarPickBtn.selected, .SithAvatarPickBtn:hover {
-  border: 2px solid #b1060f;
+
+.SithAvatarPickBtn::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(45deg, #b1060f, #2a161a);
+  border-radius: 50%;
+  transform: translateZ(-5px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.SithAvatarPickBtn:hover {
+  transform: translateZ(15px) scale(1.1) rotateY(10deg);
+  box-shadow: 0 10px 20px #b1060f44;
+}
+
+.SithAvatarPickBtn:hover::before {
   opacity: 1;
-  background: #b1060f;
-  color: #181012;
+}
+
+.SithAvatarPickBtn.selected, .SithAvatarPickBtn:hover {
+  border-color: #b1060f;
+  box-shadow: 0 0 15px #b1060f44;
+  transform: translateZ(20px) scale(1.15);
 }
 
 .SithLayout {
@@ -642,22 +855,29 @@
 }
 .SithRewardModal {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(10,10,10,0.7);
-  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  transform-style: preserve-3d;
 }
 .SithRewardContent {
   background: #181012;
-  color: #b1060f;
-  border-radius: 18px;
-  padding: 2rem 2.5rem;
-  box-shadow: 0 0 32px #b1060f44;
+  padding: 2rem;
+  border-radius: 24px;
   text-align: center;
-  min-width: 260px;
-  max-width: 90vw;
+  color: #fff;
+  max-width: 400px;
+  box-shadow: 0 20px 40px #000a;
+  transform-style: preserve-3d;
+  transform: translateZ(50px) scale(0.9);
+  animation: modalAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 .SithRewardContent h2 {
   color: #b1060f;
@@ -675,6 +895,8 @@
   justify-content: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
 }
 .SithPomodoroSettings label {
   color: #b1060f;
@@ -817,6 +1039,10 @@
   display: flex;
   justify-content: center;
   margin: 1.2rem 0 1.5rem 0;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  position: relative;
+  z-index: 1;
 }
 .SithSaberBar {
   position: relative;
@@ -825,17 +1051,36 @@
   background: transparent;
   display: flex;
   align-items: center;
+  background: #1a0d0d;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  transform: translateZ(5px);
+  box-shadow: 0 0 10px #b1060f22;
 }
 .SithSaberBlade {
   height: 10px;
-  background: linear-gradient(90deg, #ff2d2d 0%, #b1060f 80%, #fff 100%);
-  box-shadow: 0 0 16px 4px #ff2d2d88, 0 0 32px 8px #b1060f44;
-  border-radius: 6px 0 0 6px;
-  transition: width 0.4s cubic-bezier(.4,2,.6,1);
+  background: linear-gradient(90deg, #b1060f 0%, #ff4444 50%, #b1060f 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  position: relative;
+  transform: translateZ(2px);
+  box-shadow: 0 0 10px #b1060f, inset 0 0 5px rgba(255, 255, 255, 0.3);
+}
+.SithSaberBlade::before {
+  content: '';
   position: absolute;
+  top: 0;
   left: 0;
-  top: 4px;
-  z-index: 1;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  animation: saberGlow 2s ease-in-out infinite;
+}
+@keyframes saberGlow {
+  0%, 100% { opacity: 0.5; transform: translateX(-100%); }
+  50% { opacity: 1; transform: translateX(100%); }
 }
 .SithSaberHilt {
   position: absolute;
@@ -848,6 +1093,15 @@
   border: 2px solid #111;
   box-shadow: 0 0 6px #000a;
   z-index: 2;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(45deg, #333 0%, #666 50%, #333 100%);
+  border-radius: 50%;
+  position: absolute;
+  right: -10px;
+  top: -6px;
+  transform: translateZ(10px);
+  box-shadow: 0 0 10px #000;
 }
 .SithShareStreakBtn {
   background: linear-gradient(90deg, #b1060f 0%, #2a161a 100%);
@@ -908,4 +1162,167 @@
 .SithStatsRow {
   font-size: 1.1rem;
   margin-bottom: 0.7rem;
+}
+
+/* 3D Mouse Follow Effect */
+.SithMouseFollower {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #b1060f 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
+}
+
+/* 3D Scroll Indicator */
+.SithScrollIndicator {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transform-style: preserve-3d;
+}
+
+.SithScrollDot {
+  width: 12px;
+  height: 12px;
+  background: #b1060f;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: translateZ(0);
+  box-shadow: 0 0 10px #b1060f44;
+}
+
+.SithScrollDot:hover {
+  transform: translateZ(10px) scale(1.5);
+  box-shadow: 0 0 20px #b1060f88;
+}
+
+.SithScrollDot.active {
+  background: #fff;
+  transform: translateZ(15px) scale(1.8);
+  box-shadow: 0 0 25px #fff;
+}
+
+/* 3D Responsive Design */
+@media (max-width: 800px) {
+  .SithSection:hover {
+    transform: translateZ(10px) scale(1.01);
+  }
+  
+  .SithHeader h1:hover {
+    transform: translateZ(15px) scale(1.02);
+  }
+  
+  .SithButton:hover {
+    transform: translateZ(5px) scale(1.02);
+  }
+}
+
+@media (max-width: 600px) {
+  .SithSection {
+    margin: 1rem auto;
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+  }
+  
+  .SithSection:hover {
+    transform: translateZ(5px) scale(1.01);
+  }
+  
+  .SithHeader h1 {
+    font-size: 1.8rem;
+  }
+  
+  .SithTimerDisplay {
+    font-size: 1.8rem;
+  }
+}
+
+/* 3D Parallax Background Elements */
+.SithParallaxContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -10;
+  overflow: hidden;
+}
+
+.SithParallaxLayer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.SithParallaxLayer:nth-child(1) {
+  background: radial-gradient(circle at 20% 80%, rgba(177, 6, 15, 0.1) 0%, transparent 50%);
+  transform: translateZ(-300px) scale(2);
+}
+
+.SithParallaxLayer:nth-child(2) {
+  background: radial-gradient(circle at 80% 20%, rgba(177, 6, 15, 0.05) 0%, transparent 50%);
+  transform: translateZ(-200px) scale(1.5);
+}
+
+.SithParallaxLayer:nth-child(3) {
+  background: radial-gradient(circle at 50% 50%, rgba(177, 6, 15, 0.03) 0%, transparent 50%);
+  transform: translateZ(-100px) scale(1.2);
+}
+
+/* 3D Floating Particles */
+.SithParticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -5;
+}
+
+.SithParticle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #b1060f;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #b1060f;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.SithParticle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.SithParticle:nth-child(2) { left: 20%; animation-delay: 1s; }
+.SithParticle:nth-child(3) { left: 30%; animation-delay: 2s; }
+.SithParticle:nth-child(4) { left: 40%; animation-delay: 3s; }
+.SithParticle:nth-child(5) { left: 50%; animation-delay: 4s; }
+.SithParticle:nth-child(6) { left: 60%; animation-delay: 5s; }
+.SithParticle:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+.SithParticle:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+.SithParticle:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+/* 3D Modal Animation */
+@keyframes modalAppear {
+  0% { transform: translateZ(50px) scale(0.9) rotateX(20deg); opacity: 0; }
+  100% { transform: translateZ(50px) scale(1) rotateX(0deg); opacity: 1; }
 }

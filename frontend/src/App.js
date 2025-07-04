@@ -60,6 +60,7 @@ function App() {
   const [pomodoroMinutes, setPomodoroMinutes] = useState(25);
   const [secondsLeft, setSecondsLeft] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const intervalRef = useRef(null);
 
   // Section refs for scrolling
@@ -102,14 +103,100 @@ function App() {
     localStorage.setItem('sith_user_store', JSON.stringify(userStore));
   }, [userStore]);
 
-  // Update timer when pomodoroMinutes changes (if not running)
+  // Update timer when pomodoroMinutes changes (only if timer hasn't been started yet)
   React.useEffect(() => {
-    if (!isRunning) setSecondsLeft(pomodoroMinutes * 60);
-  }, [pomodoroMinutes, isRunning]);
+    if (!hasStarted) {
+      setSecondsLeft(pomodoroMinutes * 60);
+    }
+  }, [pomodoroMinutes, hasStarted]);
+
+  // 3D Mouse Follower Effect
+  useEffect(() => {
+    const mouseFollower = document.getElementById('mouseFollower');
+    const parallaxLayers = document.querySelectorAll('.SithParallaxLayer');
+    
+    const handleMouseMove = (e) => {
+      if (mouseFollower) {
+        mouseFollower.style.left = e.clientX + 'px';
+        mouseFollower.style.top = e.clientY + 'px';
+      }
+      
+      // Parallax effect on background layers
+      const mouseX = e.clientX / window.innerWidth;
+      const mouseY = e.clientY / window.innerHeight;
+      
+      parallaxLayers.forEach((layer, index) => {
+        const speed = (index + 1) * 0.5;
+        const x = (mouseX - 0.5) * speed * 50;
+        const y = (mouseY - 0.5) * speed * 50;
+        layer.style.transform = `translateZ(-${(index + 1) * 100}px) scale(${1.2 + index * 0.3}) translate(${x}px, ${y}px)`;
+      });
+    };
+    
+    const handleMouseEnter = () => {
+      if (mouseFollower) {
+        mouseFollower.style.opacity = '0.6';
+      }
+    };
+    
+    const handleMouseLeave = () => {
+      if (mouseFollower) {
+        mouseFollower.style.opacity = '0';
+      }
+    };
+    
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseenter', handleMouseEnter);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseenter', handleMouseEnter);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  // 3D Scroll Effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset;
+      const parallaxLayers = document.querySelectorAll('.SithParallaxLayer');
+      
+      parallaxLayers.forEach((layer, index) => {
+        const speed = (index + 1) * 0.3;
+        const yPos = -(scrolled * speed);
+        layer.style.transform = `translateZ(-${(index + 1) * 100}px) scale(${1.2 + index * 0.3}) translateY(${yPos}px)`;
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+
+
+  // 3D Timer Pulse Effect
+  useEffect(() => {
+    const timerDisplay = document.querySelector('.SithTimerDisplay');
+    if (!timerDisplay) return;
+    
+    const pulseTimer = () => {
+      if (isRunning) {
+        timerDisplay.style.transform = 'translateZ(20px) scale(1.1)';
+        setTimeout(() => {
+          timerDisplay.style.transform = 'translateZ(10px) scale(1)';
+        }, 200);
+      }
+    };
+    
+    const interval = setInterval(pulseTimer, 1000);
+    return () => clearInterval(interval);
+  }, [isRunning]);
 
   const startTimer = () => {
     if (!isRunning) {
       setIsRunning(true);
+      setHasStarted(true);
       intervalRef.current = setInterval(() => {
         setSecondsLeft(prev => {
           if (prev <= 1) {
@@ -131,6 +218,7 @@ function App() {
 
   const resetTimer = () => {
     setIsRunning(false);
+    setHasStarted(false);
     clearInterval(intervalRef.current);
     setSecondsLeft(pomodoroMinutes * 60);
   };
@@ -417,7 +505,36 @@ function App() {
 
   return (
     <div className="SithLayout" ref={appRef}>
-      {/* Removed BubblesLeft animation */}
+      {/* 3D Parallax Background Layers */}
+      <div className="SithParallaxContainer">
+        <div className="SithParallaxLayer"></div>
+        <div className="SithParallaxLayer"></div>
+        <div className="SithParallaxLayer"></div>
+      </div>
+      
+      {/* 3D Floating Particles */}
+      <div className="SithParticles">
+        <div className="SithParticle"></div>
+        <div className="SithParticle"></div>
+        <div className="SithParticle"></div>
+        <div className="SithParticle"></div>
+        <div className="SithParticle"></div>
+        <div className="SithParticle"></div>
+        <div className="SithParticle"></div>
+        <div className="SithParticle"></div>
+        <div className="SithParticle"></div>
+      </div>
+      
+      {/* 3D Mouse Follower */}
+      <div className="SithMouseFollower" id="mouseFollower"></div>
+      
+      {/* 3D Scroll Indicator */}
+      <div className="SithScrollIndicator">
+        <div className="SithScrollDot" onClick={() => scrollToSection(tasksRef)}></div>
+        <div className="SithScrollDot" onClick={() => scrollToSection(pomoRef)}></div>
+        <div className="SithScrollDot" onClick={() => scrollToSection(calendarRef)}></div>
+      </div>
+      
       {focusMode && <div className="FocusOverlay" onClick={handleExitFocusMode}><button className="SithButton FocusExitBtn" onClick={handleExitFocusMode}>Exit Focus Mode</button></div>}
       {showTimerPrompt && (
         <div className="TimerPromptOverlay">
