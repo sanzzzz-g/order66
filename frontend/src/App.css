@@ -442,6 +442,14 @@
   transform-style: preserve-3d;
   transform: translateZ(0);
   position: relative;
+  color: #b1060f;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
 }
 
 .SithAvatarPickBtn::before {
@@ -634,9 +642,10 @@
     border-radius: 8px;
   }
   .SithAvatarPickBtn {
-    font-size: 0.9rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    font-size: 0.7rem;
+    border-radius: 50%;
   }
   .SithTimerDisplay {
     font-size: 1.5rem;
@@ -787,12 +796,12 @@
 }
 
 .SithRankBar {
-  margin: 1.2rem auto 0.5rem auto;
-  max-width: 320px;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 .SithRank {
   color: #b1060f;
@@ -1325,4 +1334,171 @@
 @keyframes modalAppear {
   0% { transform: translateZ(50px) scale(0.9) rotateX(20deg); opacity: 0; }
   100% { transform: translateZ(50px) scale(1) rotateX(0deg); opacity: 1; }
+}
+
+/* Sith Eyes Easter Egg */
+.SithRankRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.SithEyesContainer {
+  display: flex;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.SithEyesContainer:hover {
+  transform: scale(1.1);
+}
+
+.SithEye {
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #000 0%, #1a0d0d 60%, #000 100%);
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid #b1060f;
+  box-shadow: 0 0 15px #b1060f, inset 0 0 10px #000;
+  animation: eyeGlow 3s ease-in-out infinite;
+}
+
+.SithEye.left-eye {
+  animation-delay: 0s;
+}
+
+.SithEye.right-eye {
+  animation-delay: 1.5s;
+}
+
+.SithEyeGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #b1060f 0%, #ff4444 50%, transparent 100%);
+  border-radius: 50%;
+  animation: innerGlow 2s ease-in-out infinite;
+}
+
+.SithEyePupil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: #000;
+  border-radius: 50%;
+  animation: pupilBlink 4s ease-in-out infinite;
+}
+
+@keyframes eyeGlow {
+  0%, 100% { 
+    box-shadow: 0 0 15px #b1060f, inset 0 0 10px #000;
+    border-color: #b1060f;
+  }
+  50% { 
+    box-shadow: 0 0 25px #ff4444, inset 0 0 15px #000;
+    border-color: #ff4444;
+  }
+}
+
+@keyframes innerGlow {
+  0%, 100% { 
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes pupilBlink {
+  0%, 90%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+  }
+  95% { 
+    transform: translate(-50%, -50%) scale(0.1);
+  }
+}
+
+/* Easter Egg Modal Styling */
+.SithEasterEggContent {
+  background: linear-gradient(135deg, #1a0d0d 0%, #2a161a 100%);
+  border: 3px solid #b1060f;
+  box-shadow: 0 0 30px #b1060f88;
+}
+
+.SithEasterEggContent h2 {
+  color: #ff4444;
+  text-shadow: 0 0 15px #ff4444;
+  animation: easterEggTitle 2s ease-in-out infinite;
+}
+
+@keyframes easterEggTitle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.YodaQuote {
+  background: rgba(177, 6, 15, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border: 2px solid #b1060f;
+  position: relative;
+  overflow: hidden;
+}
+
+.YodaQuote::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(177, 6, 15, 0.2) 50%, transparent 100%);
+  animation: quoteGlow 3s ease-in-out infinite;
+}
+
+@keyframes quoteGlow {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.YodaQuoteText {
+  font-size: 1.2rem;
+  color: #fff;
+  font-style: italic;
+  margin: 0;
+  text-shadow: 0 0 8px #b1060f88;
+  position: relative;
+  z-index: 1;
+}
+
+.YodaSignature {
+  color: #b1060f;
+  font-weight: bold;
+  margin: 0.5rem 0 0 0;
+  text-align: right;
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.EasterEggCounter {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+  text-align: center;
 }

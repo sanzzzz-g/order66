@@ -46,8 +46,30 @@ const SITH_MOTIVATION = [
   'You are fulfilling your destiny.'
 ];
 
+const YODA_EASTER_EGG_QUOTES = [
+  'Do or do not. There is no try.',
+  'The greatest teacher, failure is.',
+  'Fear is the path to the dark side.',
+  'Size matters not. Look at me.',
+  'Wars not make one great.',
+  'You must unlearn what you have learned.',
+  'Patience you must have, my young padawan.',
+  'In a dark place we find ourselves, and a little more knowledge lights our way.',
+  'The shadow of greed, that is.',
+  'Much to learn, you still have.',
+  'Your focus determines your reality.',
+  'The Force will be with you, always.',
+  'Truly wonderful, the mind of a child is.',
+  'Difficult to see. Always in motion is the future.',
+  'Adventure. Excitement. A Jedi craves not these things.'
+];
+
 function getTodayKey() {
-  return new Date().toISOString().slice(0, 10);
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 function App() {
@@ -299,7 +321,12 @@ function App() {
   };
 
   // Calendar logic
-  const getDateKey = (date) => date.toISOString().slice(0, 10);
+  const getDateKey = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
   const selectedDateKey = getDateKey(calendarDate);
   const selectedDateTasks = calendarTasks[selectedDateKey] || [];
 
@@ -340,6 +367,9 @@ function App() {
   };
 
   const [showCongrats, setShowCongrats] = useState(false);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const [easterEggQuote, setEasterEggQuote] = useState('');
+  const [eyesClicked, setEyesClicked] = useState(0);
 
   const onPomodoroComplete = () => {
     const today = getTodayKey();
@@ -503,6 +533,13 @@ function App() {
     }
   };
 
+  const handleEyesClick = () => {
+    setEyesClicked(prev => prev + 1);
+    const randomQuote = YODA_EASTER_EGG_QUOTES[Math.floor(Math.random() * YODA_EASTER_EGG_QUOTES.length)];
+    setEasterEggQuote(randomQuote);
+    setShowEasterEgg(true);
+  };
+
   return (
     <div className="SithLayout" ref={appRef}>
       {/* 3D Parallax Background Layers */}
@@ -638,6 +675,20 @@ function App() {
           </div>
         </div>
       )}
+      {/* Easter Egg Modal */}
+      {showEasterEgg && (
+        <div className="SithRewardModal" onClick={() => setShowEasterEgg(false)}>
+          <div className="SithRewardContent SithEasterEggContent">
+            <h2>🎉 Easter Egg Unlocked! 🎉</h2>
+            <div className="YodaQuote">
+              <p className="YodaQuoteText">"{easterEggQuote}"</p>
+              <p className="YodaSignature">- Master Yoda</p>
+            </div>
+            <p className="EasterEggCounter">Eyes clicked: {eyesClicked} times</p>
+            <button className="SithButton" onClick={() => setShowEasterEgg(false)}>Close</button>
+          </div>
+        </div>
+      )}
       {/* Sidebar overlay for mobile/desktop */}
       <div className={`SithSidebarOverlay${sidebarOpen ? ' open' : ''}`} onClick={() => setSidebarOpen(false)} />
       <nav className={`SithSidebarDrawer${sidebarOpen ? ' open' : ''}`}>
@@ -669,7 +720,19 @@ function App() {
             </div>
           </div>
           <div className="SithRankBar">
-            <span className="SithRank">{currentRank.title} ({xp} XP)</span>
+            <div className="SithRankRow">
+              <div className="SithEyesContainer" onClick={handleEyesClick}>
+                <div className="SithEye left-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+                <div className="SithEye right-eye">
+                  <div className="SithEyeGlow"></div>
+                  <div className="SithEyePupil"></div>
+                </div>
+              </div>
+              <span className="SithRank">{currentRank.title} ({xp} XP)</span>
+            </div>
             <div className="SithRankProgress">
               <div className="SithRankProgressFill" style={{ width: `${rankProgress * 100}%` }} />
             </div>
