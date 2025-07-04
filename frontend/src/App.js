@@ -455,6 +455,7 @@ function App() {
   const [showEasterEgg, setShowEasterEgg] = useState(false);
   const [easterEggQuote, setEasterEggQuote] = useState('');
   const [eyesClicked, setEyesClicked] = useState(0);
+  const [showJediWarning, setShowJediWarning] = useState(false);
 
   const onPomodoroComplete = () => {
     const today = getTodayKey();
@@ -619,10 +620,19 @@ function App() {
   };
 
   const handleEyesClick = () => {
-    setEyesClicked(prev => prev + 1);
-    const randomQuote = YODA_EASTER_EGG_QUOTES[Math.floor(Math.random() * YODA_EASTER_EGG_QUOTES.length)];
-    setEasterEggQuote(randomQuote);
-    setShowEasterEgg(true);
+    const newCount = eyesClicked + 1;
+    setEyesClicked(newCount);
+    
+    if (newCount >= 5) {
+      const randomQuote = YODA_EASTER_EGG_QUOTES[Math.floor(Math.random() * YODA_EASTER_EGG_QUOTES.length)];
+      setEasterEggQuote(randomQuote);
+      setShowEasterEgg(true);
+      setEyesClicked(0);
+    }
+  };
+
+  const handleJediThemeClick = () => {
+    setShowJediWarning(true);
   };
 
   return (
@@ -774,6 +784,25 @@ function App() {
           </div>
         </div>
       )}
+      {/* Jedi Theme Warning Modal */}
+      {showJediWarning && (
+        <div className="SithRewardModal" onClick={() => setShowJediWarning(false)}>
+          <div className="SithRewardContent">
+            <h2>⚡ TRAITOR DETECTED! ⚡</h2>
+            <p style={{ fontSize: '1.2rem', color: '#b1060f', fontWeight: 'bold', marginBottom: '1rem' }}>
+              "You dare speak of the Jedi in the presence of the Sith?"
+            </p>
+            <p style={{ marginBottom: '1rem' }}>
+              There is no Jedi theme here, only the power of the Dark Side. 
+              Your weakness will be your undoing.
+            </p>
+            <p style={{ fontStyle: 'italic', color: '#b1060f' }}>
+              "Once you start down the dark path, forever will it dominate your destiny."
+            </p>
+            <button className="SithButton" onClick={() => setShowJediWarning(false)}>Embrace the Dark Side</button>
+          </div>
+        </div>
+      )}
       {/* Sidebar overlay for mobile/desktop */}
       <div className={`SithSidebarOverlay${sidebarOpen ? ' open' : ''}`} onClick={() => setSidebarOpen(false)} />
       <nav className={`SithSidebarDrawer${sidebarOpen ? ' open' : ''}`}>
@@ -839,6 +868,7 @@ function App() {
             >
               Spotify
             </a>
+            <button className="SithButton" onClick={handleJediThemeClick}>Switch to Jedi Theme</button>
           </div>
         </header>
         <main>
@@ -966,6 +996,8 @@ function App() {
                 onChange={setCalendarDate}
                 value={calendarDate}
                 className="SithCalendar"
+                view="month"
+                showNeighboringMonth={false}
               />
               <div className="SithCalendarTasks">
                 <h3>Tasks for {selectedDateKey}</h3>
