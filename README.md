@@ -95,6 +95,8 @@ Order 66 solves these by:
 - [x] **Calendar Integration** - Schedule tasks with React Calendar
 - [x] **Focus Mode** - Fullscreen distraction-free environment
 - [x] **Sith Theming** - Dark theme with red accents and animations
+- [x] Easter Egg – Hidden modal with Jedi lore and quotes if you try to switch to the Light Side
+- [x] Vercel Deployment – Deployed with CI/CD via Vercel for seamless updates and performance
 
 ### ✅ Advanced Features
 - [x] **3D Walking Sith Character** - Animated mascot with walking cycles
