@@ -1,3 +1,9 @@
+
+# 🛡️ Order 66 - Sith Productivity Website
+> "Execute Order 66... and focus like a true apprentice of the Dark Side."
+
+A Star Wars-themed, full-stack productivity timer app that transforms your focus sessions into an immersive Sith experience. Built with React, Node.js, and Socket.IO for real-time collaboration.
+
 ## 🧑‍🚀 Meet the Mascot
 
 <p align="center">
