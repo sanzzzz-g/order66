@@ -43,8 +43,7 @@ Order 66 is a gamified productivity application that combines the Pomodoro Techn
 - **CORS** - Cross-origin resource sharing
 
 ### Deployment
-- **Vercel** - Frontend hosting
-- **Render/Railway** - Backend hosting
+- **Vercel** - Backend/Frontend hosting
 
 ## 🏆 Chosen Track: **Full Stack**
 
