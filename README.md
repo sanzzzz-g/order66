@@ -147,23 +147,6 @@ Order 66 solves these by:
 5. **Collaborate**: Tasks sync in real-time across all connected users
 6. **Schedule**: Use the calendar to plan future tasks
 
-## 🏗️ Project Structure
-
-```
-order66/
-├── frontend/                 # React application
-│   ├── public/              # Static assets
-│   ├── src/
-│   │   ├── App.js          # Main application component
-│   │   ├── PomodoroTimer.js # Timer logic
-│   │   └── App.css         # Sith-themed styles
-│   └── package.json
-├── backend/                  # Node.js server
-│   ├── index.js            # Express server with Socket.IO
-│   └── package.json
-└── README.md
-```
-
 ## 🔮 Future Enhancements
 
 - [ ] **Mobile App** - React Native version
@@ -173,14 +156,6 @@ order66/
 - [ ] **Advanced Analytics** - Detailed productivity reports
 - [ ] **Integration APIs** - Connect with Todoist, Notion, etc.
 - [ ] **Voice Commands** - Sith-themed voice controls
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 🙏 Acknowledgments
 
