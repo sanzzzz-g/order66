@@ -1,4 +1,19 @@
-# 🛡️ Order 66 - Sith Productivity App
+## 🧑‍🚀 Meet the Mascot
+
+<p align="center">
+  <img src="Mascott.jpg" width="250" alt="Order 66 Mascot"/>
+</p>
+
+> A loyal servant of the Dark Side — here to keep you productive and fully operational.
+
+
+
+
+
+
+
+
+# 🛡️ Order 66 - Sith Productivity Website
 
 > "Execute Order 66... and focus like a true apprentice of the Dark Side."
 
@@ -28,8 +43,7 @@ Order 66 is a gamified productivity application that combines the Pomodoro Techn
 - **CORS** - Cross-origin resource sharing
 
 ### Deployment
-- **Vercel** - Frontend hosting
-- **Render/Railway** - Backend hosting
+- **Vercel** - Backend/Frontend hosting
 
 ## 🏆 Chosen Track: **Full Stack**
 
